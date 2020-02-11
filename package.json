@@ -37,5 +37,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Une appli comme Amazone mais c'est Lwar (pour la photo, la video, la musique)",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boutin-killian/lwar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boutin-killian/lwar/issues"
+  },
+  "homepage": "https://github.com/boutin-killian/lwar#readme"
 }
