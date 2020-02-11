@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
 
-app.use(express.json());
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");  
+const jwt = require("jsonwebtoken");
+var cors = require("cors");
 
 let users = [];
 const secret = "yeah-bad-secret-but-just-for-testing";
+
+app.use(cors());
+app.use(express.json());
 
 app.get("/favicon.ico", (req, res) => {
   res.status(204);
@@ -17,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log("body", req.body);
+  console.log("login / body", req.body);
   const retrievedEmail = req.body.email;
   const user = users.find(user => user.email === retrievedEmail);
   if (!user) {
@@ -35,13 +38,31 @@ app.post("/login", (req, res) => {
     iat: Date.now(),
     role: "student"
   };
-  res.json({ token: jwt.sign(payload, secret) });
+  res.json({
+    token: jwt.sign(payload, secret),
+    user: { name: req.body.name, email: req.body.email }
+  });
 });
 
 app.post("/register", (req, res) => {
-    console.log("body", req.body);
+    console.log("register / body", req.body);
     const encryptedPassword = bcrypt.hashSync(req.body.password, 10);
-    const user = { email: req.body.email, password: encryptedPassword };
+    const retrievedEmail = req.body.email.trim();
+
+    const user = {
+      email: retrievedEmail,
+      password: encryptedPassword,
+      name: req.body.name
+    };
+
+    // email address must be unique
+    const userIndex = users.findIndex(user => user.email === retrievedEmail);
+    console.log("userIndex", userIndex);
+    if (userIndex !== -1) {
+      return res.status(422).json({
+        message: `Conflict. User with ${retrievedEmail} already exists`
+      });
+    }
     users = [...users, user];
     console.log("users", users);
     const payload = {
@@ -49,7 +70,11 @@ app.post("/register", (req, res) => {
       iat: Date.now(),
       role: "student"
     };
-    res.json({ token: jwt.sign(payload, secret) });
+
+    res.json({
+      token: jwt.sign(payload, secret),
+      user: { name: req.body.name, email: req.body.email }
+    });
   });
 
 const PORT = 3001;

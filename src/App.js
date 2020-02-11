@@ -2,6 +2,8 @@ import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Container, Menu, Icon } from "semantic-ui-react";
 import "./App.css";
+import axios from "axios";
+import Login from "./components/Login";
 import ArticleList from "./components/ArticleList";
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
@@ -17,6 +19,32 @@ const CART_KEY = "react-shop";
 function App() {
   const [cart, setCart] = useState({});
   const [nbArticles, setNbArticles] = useState(0);
+
+  const handleLogin = credentials => {
+    console.log("credentials", credentials);
+    const config = {
+      "Content-Type": "application/json"
+    };
+    axios
+      .post("http://localhost:3001/login", credentials, config)
+      .then(res => {
+        console.log("res.data", res.data);
+      })
+      .catch(err => console.error(err));
+  };
+
+  const handleRegister = credentials => {
+    console.log("handleRegister credentials", credentials);
+    const config = {
+      "Content-Type": "application/json"
+    };
+    axios
+      .post("http://localhost:3001/register", credentials, config)
+      .then(res => {
+        console.log("res.data", res.data);
+      })
+      .catch(err => console.error(err));
+  };
 
   //!\ order matters: first useEffect() retrieves from localStorage, second useEffect persists in localStorage
   useEffect(() => {
@@ -80,6 +108,8 @@ function App() {
 
   return (
     <>
+      <Login login={handleLogin} register={handleRegister} />
+      <br />
       <Router>
         <CartContext.Provider value={contextValue}>
           <Container>
