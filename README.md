@@ -1,3 +1,3 @@
 # Lwar
 
-Une appli comme Amazone mais c'est Lwar (pour la photo, la video, la musique)
+Une appli comme Amazon mais c'est Lwar (pour la photo, la video, la musique)
