@@ -54,6 +54,7 @@ export default function Login({ login, register }) {
           />
           <Form.Input
             fluid
+            type="password"
             label="Mot de passe"
             placeholder="Mot de passe"
             name="password"

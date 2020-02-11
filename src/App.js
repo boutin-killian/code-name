@@ -4,6 +4,7 @@ import { Container, Menu, Icon } from "semantic-ui-react";
 import "./App.css";
 import axios from "axios";
 import Login from "./components/Login";
+import UserSummary from "./components/UserSummary";
 import ArticleList from "./components/ArticleList";
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
@@ -15,10 +16,13 @@ import ProfileDetail from "./components/ProfileDetail";
 
 export const CartContext = createContext();
 const CART_KEY = "react-shop";
+const STORAGE_KEY = "react-log";
 
 function App() {
   const [cart, setCart] = useState({});
   const [nbArticles, setNbArticles] = useState(0);
+  const [isLoginVisible, setIsLoginVisible] = useState(true);
+  const [user, setUser] = useState({ name: "", email: "" });
 
   const handleLogin = credentials => {
     console.log("credentials", credentials);
@@ -29,6 +33,9 @@ function App() {
       .post("http://localhost:3001/login", credentials, config)
       .then(res => {
         console.log("res.data", res.data);
+        saveTokenInLocalstorage(res.data.token);
+        setIsLoginVisible(false);
+        setUser(res.data.user);
       })
       .catch(err => console.error(err));
   };
@@ -42,8 +49,20 @@ function App() {
       .post("http://localhost:3001/register", credentials, config)
       .then(res => {
         console.log("res.data", res.data);
+        saveTokenInLocalstorage(res.data.token);
+        setIsLoginVisible(false);
+        setUser(res.data.user);
       })
       .catch(err => console.error(err));
+  };
+
+  const saveTokenInLocalstorage = token => {
+    localStorage.setItem(STORAGE_KEY, token);
+  };
+
+  const disconnect = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setIsLoginVisible(true);
   };
 
   //!\ order matters: first useEffect() retrieves from localStorage, second useEffect persists in localStorage
@@ -108,7 +127,11 @@ function App() {
 
   return (
     <>
-      <Login login={handleLogin} register={handleRegister} />
+      {isLoginVisible ? (
+        <Login login={handleLogin} register={handleRegister} />
+      ) : (
+        <UserSummary user={user} disconnect={disconnect} />
+      )}
       <br />
       <Router>
         <CartContext.Provider value={contextValue}>
