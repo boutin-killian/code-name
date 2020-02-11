@@ -14,6 +14,7 @@ import VideosList from "./components/VideosList";
 import ProfileDetail from "./components/ProfileDetail";
 
 export const CartContext = createContext();
+
 const CART_KEY = "react-shop";
 const STORAGE_KEY = "react-log";
 

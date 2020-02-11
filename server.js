@@ -7,6 +7,8 @@ var cors = require("cors");
 
 let users = [];
 const secret = "yeah-bad-secret-but-just-for-testing";
+const DbManager = require("./utils/DbManager");
+const db = DbManager();
 
 app.use(cors());
 app.use(express.json());
