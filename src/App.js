@@ -140,9 +140,11 @@ function App() {
               <Menu.Item>
                 <Link to="/">Lwar</Link>
               </Menu.Item>
-              <Menu.Item>
-                <Link to="/profile">Mon profil</Link>
-              </Menu.Item>
+              {!isLoginVisible &&
+                <Menu.Item>
+                  <Link to="/profile">Mon profil</Link>
+                </Menu.Item>
+              }
               <Menu.Item>
                 <Link to="/cart">
                   <Icon name="cart" size="small" /> <CartSummary />
