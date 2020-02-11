@@ -5,6 +5,7 @@ import "./App.css";
 import BookList from "./components/BookList";
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
+import ProfileDetail from "./components/ProfileDetail";
 
 export const CartContext = createContext();
 const CART_KEY = "react-shop";
@@ -83,6 +84,9 @@ function App() {
                 <Link to="/">Lwar</Link>
               </Menu.Item>
               <Menu.Item>
+                <Link to="/profile">Mon profil</Link>
+              </Menu.Item>
+              <Menu.Item>
                 <Link to="/cart">
                   <Icon name="cart" size="small" /> <CartSummary />
                 </Link>
@@ -90,6 +94,7 @@ function App() {
             </Menu>
           </Container>
           <Switch>
+            <Route path="/profile" component={ProfileDetail} />
             <Route path="/cart" component={CartDetails} />
             <Route path="/" component={BookList} />
           </Switch>
