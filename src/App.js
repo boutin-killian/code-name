@@ -2,9 +2,13 @@ import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Container, Menu, Icon } from "semantic-ui-react";
 import "./App.css";
-import BookList from "./components/BookList";
+import ArticleList from "./components/ArticleList";
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
+import PhotosList from "./components/PhotosList";
+import MusicsList from "./components/MusicsList";
+import BooksList from "./components/BooksList";
+import VideosList from "./components/VideosList";
 
 export const CartContext = createContext();
 const CART_KEY = "react-shop";
@@ -87,11 +91,28 @@ function App() {
                   <Icon name="cart" size="small" /> <CartSummary />
                 </Link>
               </Menu.Item>
+              <Menu.Item>
+                <Link to="/videos">Videos</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/photos">Photos</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/musiques">Musiques</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/livres">Livres</Link>
+              </Menu.Item>
             </Menu>
           </Container>
           <Switch>
             <Route path="/cart" component={CartDetails} />
-            <Route path="/" component={BookList} />
+            <Route path="/videos" component={VideosList} />
+            <Route path="/photos" component={PhotosList} />
+            <Route path="/musiques" component={MusicsList} />
+            <Route path="/livres" component={BooksList} />
+
+            <Route path="/" component={ArticleList} />
           </Switch>
         </CartContext.Provider>
       </Router>
