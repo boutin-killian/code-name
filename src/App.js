@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Container, Menu, Icon } from "semantic-ui-react";
 
 import CartSummary from "./components/CartSummary";
+import CartDetails from "./components/CartDetails";
 
 export const CartContext = createContext();
 const CART_KEY = "react-shop";
@@ -50,6 +51,7 @@ function App() {
     }
 
     function emptyCart() {
+        console.log('ici');
         const response = window.confirm(
             "Etes-vous vous sûr de vouloir vider le caddie ? "
         );
@@ -90,7 +92,7 @@ function App() {
                       </Menu>
                   </Container>
                   <Switch>
-                      <Route path="/cart" />
+                      <Route path="/cart" component={CartDetails} />
                       <Route path="/" />
                   </Switch>
               </CartContext.Provider>
