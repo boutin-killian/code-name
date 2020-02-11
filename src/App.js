@@ -6,6 +6,7 @@ import { Container, Menu, Icon } from "semantic-ui-react";
 
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
+import ProfileDetail from "./components/ProfileDetail";
 
 export const CartContext = createContext();
 const CART_KEY = "react-shop";
@@ -82,16 +83,20 @@ function App() {
                   <Container>
                       <Menu stackable>
                           <Menu.Item>
-                              <Link to="/">Campus Shop</Link>
+                              <Link to="/">LWAR</Link>
                           </Menu.Item>
                           <Menu.Item>
                               <Link to="/cart">
                                   <Icon name="cart" size="small" /> <CartSummary />
                               </Link>
                           </Menu.Item>
+                          <Menu.Item>
+                              <Link to="/profile">Mon Profil</Link>
+                          </Menu.Item>
                       </Menu>
                   </Container>
                   <Switch>
+                      <Route path="/profile" component={ProfileDetail} />
                       <Route path="/cart" component={CartDetails} />
                       <Route path="/" />
                   </Switch>
