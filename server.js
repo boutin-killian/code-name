@@ -77,7 +77,7 @@ app.post("/register", (req, res) => {
     });
   });
 
-const PORT = 3001;
+const PORT = 3002;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });

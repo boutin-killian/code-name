@@ -3,7 +3,7 @@ import axios from "axios";
 import { Grid, Segment } from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function ArticleList() {
+export default function BooksList() {
   const [books, setMusics] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function ArticleList() {
 
   return (
     <>
-      <h3>Musique</h3>
+      <h3>Livres</h3>
       {books.length === 0 ? (
         <div>loading...</div>
       ) : (

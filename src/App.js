@@ -30,7 +30,7 @@ function App() {
       "Content-Type": "application/json"
     };
     axios
-      .post("http://localhost:3001/login", credentials, config)
+      .post("http://localhost:3002/login", credentials, config)
       .then(res => {
         console.log("res.data", res.data);
         saveTokenInLocalstorage(res.data.token);
@@ -46,7 +46,7 @@ function App() {
       "Content-Type": "application/json"
     };
     axios
-      .post("http://localhost:3001/register", credentials, config)
+      .post("http://localhost:3002/register", credentials, config)
       .then(res => {
         console.log("res.data", res.data);
         saveTokenInLocalstorage(res.data.token);

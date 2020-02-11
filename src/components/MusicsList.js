@@ -3,7 +3,7 @@ import axios from "axios";
 import { Grid, Segment } from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function ArticleList() {
+export default function MusicsList() {
   const [musics, setMusics] = useState([]);
 
   useEffect(() => {
