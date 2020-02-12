@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form , Segment, Container } from 'semantic-ui-react';
+import { Form , Segment, Container, Button, Icon } from 'semantic-ui-react';
 
 export default function ProfileDetail({ props, user, disconnect }) {
     const handleClick = e => {
@@ -50,6 +50,14 @@ export default function ProfileDetail({ props, user, disconnect }) {
                     </Form.Button>
                 </Form.Group>
             </Form>
+            <div>
+              <Button animated onClick={handleClick}>
+                <Button.Content visible>Se déconnecter</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="user close" />
+                </Button.Content>
+              </Button>
+            </div>
         </Segment>
     );
 }
