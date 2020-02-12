@@ -27,32 +27,26 @@ function App() {
     const [user, setUser] = useState({fullname: "", email: ""});
 
     const handleLogin = credentials => {
-        console.log("credentials", credentials);
         const config = {
             "Content-Type": "application/json"
         };
         axios
             .post("http://localhost:3002/login", credentials, config)
             .then(res => {
-                console.log("res.data", res.data);
                 saveTokenInLocalstorage(res.data.token);
                 setIsLoggedIn(true);
-                console.log('login');
-                console.log(res.data.user);
                 setUser(res.data.user);
             })
             .catch(err => console.error(err));
     };
 
     const handleRegister = credentials => {
-        console.log("handleRegister credentials", credentials);
         const config = {
             "Content-Type": "application/json"
         };
         axios
             .post("http://localhost:3002/register", credentials, config)
             .then(res => {
-                console.log('res.data', res.data);
                 saveTokenInLocalstorage(res.data.token);
                 setIsLoggedIn(true);
                 setUser(res.data.user);
@@ -100,7 +94,6 @@ function App() {
             delete cart[item.id];
         }
         setCart({...cart});
-        console.log("cart", cart);
     }
 
     function emptyCart() {
@@ -137,11 +130,6 @@ function App() {
                                 <Link to="/">Lwar</Link>
                             </Menu.Item>
                             <Menu.Item>
-                                <Link to="/cart">
-                                    <Icon name="cart" size="small"/> <CartSummary/>
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item>
                                 <Link to="/videos">Videos</Link>
                             </Menu.Item>
                             <Menu.Item>
@@ -154,6 +142,11 @@ function App() {
                                 <Link to="/livres">Livres</Link>
                             </Menu.Item>
                             <Menu.Menu position='right'>
+                                <Menu.Item>
+                                    <Link to="/cart">
+                                        <Icon name="cart" size="small"/> <CartSummary/>
+                                    </Link>
+                                </Menu.Item>
                                 {isLoggedIn ? (
                                     <>
                                         <Menu.Item>
@@ -173,25 +166,27 @@ function App() {
                         </Menu>
                     </Container>
                     <Switch>
-                        {isLoggedIn ? (
-                            <>
-                                <Route path="/add-article" render={(props) =>
-                                    <AddArticle props={props} user={user}/>}
-                                />
-                                <Route path="/profile" render={(props) =>
-                                    <ProfileDetail props={props} user={user} disconnect={disconnect}/>}
-                                />
-                            </>
-                        ) : (
-                            <Route path="/login-register" render={(props) => <Login props={props} login={handleLogin}
-                                                                                    register={handleRegister}/>}/>
-                        )}
-                        <Route path="/cart" component={CartDetails}/>
                         <Route path="/videos" component={VideosList}/>
                         <Route path="/photos" component={PhotosList}/>
                         <Route path="/musiques" component={MusicsList}/>
                         <Route path="/livres" component={BooksList}/>
 
+                        {isLoggedIn && (
+                            <Route path="/add-article" render={(props) =>
+                                <AddArticle props={props} user={user}/>}
+                            />
+                        )}
+                        {isLoggedIn && (
+                            <Route path="/profile" render={(props) =>
+                                <ProfileDetail props={props} user={user} disconnect={disconnect}/>}
+                            />
+                        )}
+                        {!isLoggedIn && (
+                            <Route path="/login-register" render={(props) => <Login props={props} login={handleLogin}
+                                                                                    register={handleRegister}/>}/>
+                        )}
+
+                        <Route path="/cart" component={CartDetails}/>
                         <Route path="/" component={ArticleList}/>
                     </Switch>
                 </CartContext.Provider>
