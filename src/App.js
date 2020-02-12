@@ -148,6 +148,7 @@ function App() {
             console.log("cart nbSell : ",cart[key].quantity);
             axios
                 .put("http://localhost:3002/articles", {_id: cart[key]._id, nbSell: cart[key].quantity}, config)
+                .then(emptyCart())
                 .catch(err => console.error(err));
         });
     }

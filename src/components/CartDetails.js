@@ -36,7 +36,7 @@ const CartDetails = () => {
 
                 <Table.Body>
                     {Object.keys(cart).map(key => (
-                        <Table.Row key={cart[key].id}>
+                        <Table.Row key={cart[key]._id}>
                             <Table.Cell>
                                 <Icon
                                     name="minus square outline"
