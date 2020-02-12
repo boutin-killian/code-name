@@ -10,6 +10,13 @@ const AddArticle = (props, user) => {
     const [type, setType] = useState("");
     const [image, setImage] = useState("");
 
+    const options = [
+        {key: 'book', text:'Book', value:'book'},
+        {key: 'music', text:'Music', value:'music'},
+        {key: 'photo', text:'Photo', value:'photo'},
+        {key: 'video', text:'Video', value:'video'}
+    ]
+
     const handleSubmit = () => {
         let article = {
             'title' : title,
@@ -48,12 +55,7 @@ const AddArticle = (props, user) => {
                     <label>Price</label>
                     <input placeholder='price' type='number' onChange={(e) => {setPrice(e.target.value)}}/>
                 </Form.Field>
-                <Form.Field label='Type' control='select' onChange={(e) => {setType(e.target.value)}}>
-                    <option value='book'>Book</option>
-                    <option value='music'>Music</option>
-                    <option value='photo'>Photo</option>
-                    <option value='video'>Video</option>
-                </Form.Field>
+                <Form.Select fluid label='type' options={options} onChange={(e) => {setType(e.target.value)}} />
                 <Form.Field>
                     <label>Image</label>
                     <input placeholder='url' onChange={(e) => {setImage(e.target.value)}}/>
