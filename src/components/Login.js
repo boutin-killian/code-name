@@ -12,6 +12,7 @@ const Login = ({props, login, register}) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log('isLogin', isLogin);
     if (isLogin) {
         var success = await login(credentials);
     } else {

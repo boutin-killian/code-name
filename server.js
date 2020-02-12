@@ -45,7 +45,7 @@ app.post("/login", (req, res) => {
             const isMatchPassword = bcrypt.compareSync(password, data[0].pwd);
             console.log('is match', isMatchPassword);
             if (!isMatchPassword) {
-                return res.json({message: `${password} is a wrong password`, status: '401'});
+                return res.json({message: `You used the wrong password`, status: '401'});
             } else {
                 console.log("USER EXISTS");
                 const payload = {
@@ -87,7 +87,7 @@ app.post("/register", (req, res) => {
             user.save((err, user) => {
                 if (err) {
                     console.error(err);
-                    res.status(500).json({message: "Failed to save user"});
+                    //res.status(500).json({message: "Failed to save user"});
                     return;
                 }
                 return user;
@@ -98,20 +98,21 @@ app.post("/register", (req, res) => {
             return;
         }
 
-    });
+        const payload = {
+            email: user.email,
+            iat: Date.now(),
+            role: "student"
+        };
+    
+        res.json({
+            token: jwt.sign(payload, secret),
+            user: {name: req.body.name, email: req.body.email},
+            status: '200'
+        });
+        return;
 
-    const payload = {
-        email: user.email,
-        iat: Date.now(),
-        role: "student"
-    };
-
-    res.json({
-        token: jwt.sign(payload, secret),
-        user: {name: req.body.name, email: req.body.email},
-        status: '200'
     });
-    return;
+    
 });
 
 app.get("/users", (req, res) => {

@@ -42,6 +42,7 @@ function App() {
                 switch(res.data.status){
                   case '401':
                     resolve({'message': res.data.message, 'isSuccess': false});
+                    break;
         
                   default:
                     saveTokenInLocalstorage(res.data.token);
@@ -72,16 +73,14 @@ function App() {
                 switch(res.data.status){
                   case '401':
                     resolve({'message': res.data.message, 'isSuccess': false});
+                    break;
 
                   default:
-                    
                     saveTokenInLocalstorage(res.data.token);
                     setIsLoggedIn(true);
                     setUser(res.data.user);
                     resolve({'isSuccess': true});
                 }
-
-                  
               })
               .catch(err => console.error(err));
         });
