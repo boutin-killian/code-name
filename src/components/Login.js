@@ -10,15 +10,22 @@ export default function Login({ props, login, register }) {
 
   const [isLogin, setIsLogin] = useState(true);
 
-  const handleSubmit = e => {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (isLogin) {
-        login(credentials);
+        var success = await login(credentials);
     } else {
-        register(credentials);
+        var success = await register(credentials);
     }
-    props.history.push("/profile");
-    emptyFormFields();
+
+    if(success.isSuccess){
+        props.history.push("/profile");
+    }else{
+        emptyFormFields();
+        alert(success.message);
+    }
+    
+    
   };
 
   const handleChange = e => {

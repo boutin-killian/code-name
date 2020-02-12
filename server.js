@@ -17,10 +17,12 @@ app.use(express.json());
 
 app.get("/favicon.ico", (req, res) => {
     res.status(204);
+    return;
 });
 
 app.get("/", (req, res) => {
     res.json({message: "Server ON"});
+    return;
 });
 
 app.post("/login", (req, res) => {
@@ -43,8 +45,9 @@ app.post("/login", (req, res) => {
             const password = req.body.password;
             console.log("pwd", data[0].pwd);
             const isMatchPassword = bcrypt.compareSync(password, data[0].pwd);
+            console.log('is match', isMatchPassword);
             if (!isMatchPassword) {
-                return res.status(401).json({message: `${password} is a wrong password`});
+                return res.json({message: `${password} is a wrong password`, status: '401'});
             } else {
                 console.log("USER EXISTS");
                 const payload = {
@@ -52,8 +55,10 @@ app.post("/login", (req, res) => {
                 };
                 res.json({
                     token: jwt.sign(payload, secret),
-                    user: {fullname: data[0].fullname, mail: req.body.email}
+                    user: {fullname: data[0].fullname, mail: req.body.email},
+                    status: '200'
                 });
+                return;
             }
         }
 
@@ -85,14 +90,14 @@ app.post("/register", (req, res) => {
             user.save((err, user) => {
                 if (err) {
                     console.error(err);
-                    //res.status(500).json({message: "Failed to save user"});
+                    res.status(500).json({message: "Failed to save user"});
                     return;
                 }
                 return user;
             });
         } else {
             console.log("USER ALREADY EXISTS");
-            //res.status(422).json({message: `Conflict. User with ${retrievedEmail} already exists`});
+            res.json({message: `Conflict. User with ${retrievedEmail} already exists`, status: '401'});
             return;
         }
 
@@ -106,8 +111,10 @@ app.post("/register", (req, res) => {
 
     res.json({
         token: jwt.sign(payload, secret),
-        user: {name: req.body.name, email: req.body.email}
+        user: {name: req.body.name, email: req.body.email},
+        status: '200'
     });
+    return;
 });
 
 app.get("/users", (req, res) => {
@@ -126,6 +133,7 @@ app.get("/users", (req, res) => {
             });
     } else {
         res.status(500).json({message: "DB is NOT ready"});
+        return;
     }
 });
 
@@ -145,6 +153,7 @@ app.get("/articles", (req, res) => {
             });
     } else {
         res.status(500).json({message: "DB is NOT ready"});
+        return;
     }
 });
 
@@ -184,10 +193,11 @@ app.post("/article", (req, res) => {
                 });
         } else {
             res.status(500).json({message: "DB is NOT ready"});
+            return;
         }
 
     } else {
-        console.log("Aucune donnée transmise.")
+        console.log("Aucune donnée transmise.");
     }
 });
 

@@ -26,38 +26,65 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState({fullname: "", email: ""});
 
-    const handleLogin = credentials => {
+    async function handleLogin(credentials) {
         console.log("credentials", credentials);
         const config = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         };
-        axios
-            .post("http://localhost:3002/login", credentials, config)
-            .then(res => {
+
+        return new Promise(function(resolve, reject) {
+
+          axios
+              .post("http://localhost:3002/login", credentials, config)
+              .then(res => {
                 console.log("res.data", res.data);
-                saveTokenInLocalstorage(res.data.token);
-                setIsLoggedIn(true);
-                console.log('login');
-                console.log(res.data.user);
-                setUser(res.data.user);
+
+                switch(res.data.status){
+                  case '401':
+                    resolve({'message': res.data.message, 'isSuccess': false});
+        
+                  default:
+                    saveTokenInLocalstorage(res.data.token);
+                    setIsLoggedIn(true);
+                    console.log('login');
+                    console.log(res.data.user);
+                    setUser(res.data.user);
+                    resolve({'isSuccess': true});
+                }
+                
             })
-            .catch(err => console.error(err));
+            .catch(err => {console.error('error', err)});
+          });
     };
 
-    const handleRegister = credentials => {
+    async function handleRegister(credentials) {
         console.log("handleRegister credentials", credentials);
         const config = {
             "Content-Type": "application/json"
         };
-        axios
-            .post("http://localhost:3002/register", credentials, config)
-            .then(res => {
+
+
+        return new Promise(function(resolve, reject) {
+          axios
+              .post("http://localhost:3002/register", credentials, config)
+              .then(res => {
                 console.log('res.data', res.data);
-                saveTokenInLocalstorage(res.data.token);
-                setIsLoggedIn(true);
-                setUser(res.data.user);
-            })
-            .catch(err => console.error(err));
+                switch(res.data.status){
+                  case '401':
+                    resolve({'message': res.data.message, 'isSuccess': false});
+
+                  default:
+                    
+                    saveTokenInLocalstorage(res.data.token);
+                    setIsLoggedIn(true);
+                    setUser(res.data.user);
+                    resolve({'isSuccess': true});
+                }
+
+                  
+              })
+              .catch(err => console.error(err));
+        });
     };
 
     const saveTokenInLocalstorage = token => {
