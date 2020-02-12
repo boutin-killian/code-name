@@ -1,9 +1,5 @@
-
-
 const mongoose = require("mongoose");
 
-
-console.log(process.env.MONGO_SRV);
 const DbManager = async () => {
   const db = await mongoose.connect(process.env.MONGO_SRV, {
     useCreateIndex: true,
@@ -11,7 +7,6 @@ const DbManager = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
-     console.log("db connected: ", db);
   return db;
 };
 
