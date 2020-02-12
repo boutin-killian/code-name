@@ -143,7 +143,7 @@ app.get("/articles", (req, res) => {
     if (db) {
         let userId = req.query.user;
         if (typeof (userId) === "undefined") {
-            Article.find({})
+            Article.find({nbStock: { $gt: 0 }})
                 .sort({year: 0})
                 .exec((err, articles) => {
                     if (err) {
@@ -154,7 +154,7 @@ app.get("/articles", (req, res) => {
                     return res.status(200).json({articles});
                 });
         } else {
-            Article.find({user: userId})
+            Article.find({user: userId, nbStock: { $gt: 0 }})
                 .sort({year: 0})
                 .exec((err, articles) => {
                     if (err) {
@@ -201,8 +201,6 @@ app.post("/article", (req, res) => {
 });
 
 app.put("/articles", async (req, res) => {
-    console.log("tryingToPut ",req.body._id);
-    console.log("tryingToPut ",req.body.nbSell);
     if (typeof (req.body._id) !== "undefined") {
 
         var article = Article.findOne({_id: req.body._id}).exec(async (err, articles) => {

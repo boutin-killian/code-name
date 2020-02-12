@@ -22,7 +22,7 @@ const ArticleCard = ({data, type, typeLabel}) => {
                     <span className="date">Restant : {data.nbStock}</span>
                 </Card.Meta>
                 <Card.Meta>
-                    <span className="date">publié en {data.year}</span>
+                    <span className="date">Publié en {data.year}</span>
                 </Card.Meta>
                 <Card.Meta>
                     <span className="type">{typeLabel}</span>
