@@ -20,7 +20,6 @@ const AddArticle = () => {
             'image' : image
         };
 
-        console.log('article', article);
         axios
             .post(`http://localhost:3002/article/`, article, {
                 headers: {
