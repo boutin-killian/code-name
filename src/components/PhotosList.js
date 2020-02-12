@@ -10,7 +10,7 @@ export default function PhotosList() {
 
   useEffect(() => {
     setPhotoFound(false);
-    axios.get("http://localhost:3001/articles?type=photo").then(res => {
+    axios.get("http://localhost:3002/articles/photo").then(res => {
       const photos = res.data;
       setPhotoFound(true);
       setPhotos(photos);
@@ -41,7 +41,7 @@ export default function PhotosList() {
                   <div>Aucune photo trouvée.</div>
               ) : (
                   <Grid columns={3} doubling stackable>
-                    {filteredPhoto.map(photo => (
+                    {filteredPhoto.articles.map(photo => (
                         <Grid.Column key={photo.id}>
                           <Segment style={{height: "26em"}}>
                             <ArticleCard data={photo} type={photo.type} typeLabel={"Photo"}/>
