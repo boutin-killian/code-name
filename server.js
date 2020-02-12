@@ -196,9 +196,8 @@ app.post("/article", (req, res) => {
     }
 });
 
-// BOOKS
+
 app.get("/articles/:type", (req, res) => {
-  console.log("------------------------/articles/books------------------------");
   var type  = req.params.type;
   console.log(type);
   if (db) {
