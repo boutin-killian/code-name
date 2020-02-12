@@ -28,6 +28,10 @@ code {
   background-color: yellow !important;
 }
 
+.articles-div {
+  margin: 20px;
+}
+
 .actions .icon {
   cursor: pointer;
   width: 150px !important;
@@ -40,4 +44,8 @@ code {
 
 .actions .icon.euro {
   background-color: #7db17d;
+}
+
+.filter-div {
+  margin: 20px 0;
 }

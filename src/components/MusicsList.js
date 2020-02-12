@@ -1,36 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { Grid, Segment } from "semantic-ui-react";
+import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
 export default function MusicsList() {
-  const [musics, setMusics] = useState([]);
+    const [musicFound, setMusicFound] = useState([]);
+    const [musics, setMusics] = useState([]);
+    const [filteredMusic, setFilteredMusic] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/articles?type=music").then(res => {
-      const musics = res.data;
-      setMusics(musics);
-    });
-  }, []);
+    useEffect(() => {
+        setMusicFound(false);
+        axios.get("http://localhost:3001/articles?type=music").then(res => {
+            const musics = res.data;
+            setMusicFound(true);
+            setMusics(musics);
+            setFilteredMusic(musics);
+        });
+    }, []);
 
-  return (
-    <>
-      <h3>Musiques</h3>
-      {musics.length === 0 ? (
-        <div>loading...</div>
-      ) : (
-        <div>
-          <Grid columns={3} doubling stackable>
-            {musics.map(music => (
-              <Grid.Column key={music.id}>
-                <Segment style={{ height: "26em" }}>
-                  <ArticleCard data={music} />
-                </Segment>
-              </Grid.Column>
-            ))}
-          </Grid>
+    function getFilteredMusics(e) {
+        setFilteredMusic(musics.filter((music) => {
+            let musicTitle = music.title.toLowerCase();
+            return musicTitle.indexOf(e.target.value.toLowerCase()) !== -1
+        }));
+    }
+
+    return (
+        <div className={"articles-div"}>
+            <h3>Musiques</h3>
+            {!musicFound ? (
+                <div>Chargement des musiques...</div>
+            ) : (
+                <div>
+                    <div className={"filter-div"}>
+                        <label htmlFor="filter">Filtre par titre: </label>
+                        <input type="text" id="filter"
+                               onChange={getFilteredMusics}/>
+                    </div>
+                    {filteredMusic.length === 0 ? (
+                        <div>Aucune musique trouvée.</div>
+                    ) : (
+                        <Grid columns={3} doubling stackable>
+                            {filteredMusic.map(music => (
+                                <Grid.Column key={music.id}>
+                                    <Segment style={{height: "26em"}}>
+                                        <ArticleCard data={music} type={music.type} typeLabel={"Musique"}/>
+                                    </Segment>
+                                </Grid.Column>
+                            ))}
+                        </Grid>
+                    )}
+                </div>
+            )}
         </div>
-      )}
-    </>
-  );
+    );
 }

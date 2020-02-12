@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Segment } from "semantic-ui-react";
 
-export default function Login({ login, register }) {
+export default function Login({ props, login, register }) {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -17,6 +17,7 @@ export default function Login({ login, register }) {
     } else {
         register(credentials);
     }
+    props.history.push("/profile");
     emptyFormFields();
   };
 
@@ -36,14 +37,16 @@ export default function Login({ login, register }) {
     <Segment>
       <Form onSubmit={handleSubmit}>
         <Form.Group widths="equal">
-          <Form.Input
-            fluid
-            label="Nom"
-            placeholder="Nom"
-            name="name"
-            value={credentials.name}
-            onChange={handleChange}
-          />
+            {!isLogin &&
+                <Form.Input
+                    fluid
+                    label="Nom"
+                    placeholder="Nom"
+                    name="name"
+                    value={credentials.name}
+                    onChange={handleChange}
+                />
+            }
           <Form.Input
             fluid
             label="Email"
