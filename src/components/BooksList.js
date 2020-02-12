@@ -10,7 +10,7 @@ export default function MusicsList() {
 
   useEffect(() => {
     setMusicFound(false);
-    axios.get("http://localhost:3001/articles?type=book").then(res => {
+    axios.get("http://localhost:3002/articles/book").then(res => {
       const books = res.data;
       setMusicFound(true);
       setMusics(books);
@@ -41,7 +41,7 @@ export default function MusicsList() {
                   <div>Aucun livre trouvé.</div>
               ) : (
                   <Grid columns={3} doubling stackable>
-                    {filteredMusic.map(book => (
+                    {filteredMusic.articles.map(book => (
                         <Grid.Column key={book.id}>
                           <Segment style={{height: "26em"}}>
                             <ArticleCard data={book} type={book.type} typeLabel={"Livre"}/>

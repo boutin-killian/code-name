@@ -125,7 +125,7 @@ app.get("/users", (req, res) => {
         res.status(500).json({message: "DB is NOT ready"});
     }
 });
-
+// ARTICLES
 app.get("/articles", (req, res) => {
 
     if (db) {
@@ -200,38 +200,28 @@ app.post("/article", (req, res) => {
     }
 });
 
-/*Article.find({user: retrievedEmail}, function (err, data) {
-    if (err) {
-        console.log(err);
-        return
-    }
+// BOOKS
+app.get("/articles/:type", (req, res) => {
+  console.log("------------------------/articles/books------------------------");
+  var type  = req.params.type;
+  console.log(type);
+  if (db) {
+      Article.find({type: type})
+          .sort({year: 1})
+          .exec((err, articles) => {
+              if (err) {
+                  return res
+                      .status(500)
+                      .json({message: "could not retrieve articles"});
+              }
+              console.log("articles", articles);
+              return res.status(200).json({articles});
+          });
+  } else {
+      res.status(500).json({message: "DB is NOT ready"});
+  }
+});
 
-    if (data.length === 0) {
-        console.log("No record found")
-        return res
-            .status(401)
-            .json({message: `No user with email ${retrievedEmail}`});
-    } else {
-        const password = req.body.password;
-        console.log("pwd", data[0].pwd);
-        const isMatchPassword = bcrypt.compareSync(password, data[0].pwd);
-        if (!isMatchPassword) {
-            return res.status(401).json({message: `${password} is a wrong password`});
-        } else {
-            console.log("USER EXISTS");
-            console.log(data[0].fullname);
-            const payload = {
-                email: data[0].mail,
-                iat: Date.now(),
-                role: "student"
-            };
-            res.json({
-                token: jwt.sign(payload, secret),
-                user: {fullname: req.body.name, mail: req.body.email}
-            });
-        }
-    }
-});*/
 
 const PORT = 3002;
 app.listen(PORT, () => {
