@@ -25,25 +25,44 @@ app.post("/login", (req, res) => {
   console.log("login / body", req.body);
   const retrievedEmail = req.body.email;
   const user = users.find(user => user.email === retrievedEmail);
-  if (!user) {
-    return res
+
+  const userIndex = User.find({mail: retrievedEmail}, function(err, data){
+    if(err){
+        console.log(err);
+        return
+    }
+
+    console.log(data.length);
+    if(data.length == 0) {
+        console.log("No record found")
+        return res
       .status(401)
       .json({ message: `No user with email ${retrievedEmail}` });
-  }
-  const password = req.body.password;
-  const isMatchPassword = bcrypt.compareSync(password, user.password);
-  if (!isMatchPassword) {
-    return res.status(401).json({ message: `${password} is a wrong password` });
-  }
-  const payload = {
-    email: user.email,
-    iat: Date.now(),
-    role: "student"
-  };
-  res.json({
-    token: jwt.sign(payload, secret),
-    user: { name: req.body.name, email: req.body.email }
-  });
+    }
+    else{
+      const password = req.body.password;
+      console.log("pwd",data[0].pwd);
+      const isMatchPassword = bcrypt.compareSync(password, data[0].pwd);
+      if (!isMatchPassword) {
+        return res.status(401).json({ message: `${password} is a wrong password` });
+      }else{
+        console.log("USER EXISTS");
+        console.log(data[0].fullname);
+        const payload = {
+          email: data[0].mail,
+          iat: Date.now(),
+          role: "student"
+        };
+        res.json({
+          token: jwt.sign(payload, secret),
+          user: { fullname: req.body.name, mail: req.body.email }
+        });
+      }
+    }
+
+});
+
+  
 });
 
 app.post("/register", (req, res) => {
