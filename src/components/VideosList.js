@@ -1,36 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { Grid, Segment } from "semantic-ui-react";
+import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function VideosList() {
-  const [videos, setVideo] = useState([]);
+export default function MusicsList() {
+  const [videoFound, setMusicFound] = useState([]);
+  const [videos, setMusics] = useState([]);
+  const [filteredMusic, setFilteredMusic] = useState([]);
 
   useEffect(() => {
+    setMusicFound(false);
     axios.get("http://localhost:3001/articles?type=video").then(res => {
       const videos = res.data;
-      setVideo(videos);
+      setMusicFound(true);
+      setMusics(videos);
+      setFilteredMusic(videos);
     });
   }, []);
 
+  function getFilteredMusics(e) {
+    setFilteredMusic(videos.filter((video) => {
+      let videoTitle = video.title.toLowerCase();
+      return videoTitle.indexOf(e.target.value.toLowerCase()) !== -1
+    }));
+  }
+
   return (
-    <>
-      <h3>Videos</h3>
-      {videos.length === 0 ? (
-        <div>loading...</div>
-      ) : (
-        <div>
-          <Grid columns={3} doubling stackable>
-            {videos.map(video => (
-              <Grid.Column key={video.id}>
-                <Segment style={{ height: "26em" }}>
-                  <ArticleCard data={video} type={video.type} typeLabel={"Video"} />
-                </Segment>
-              </Grid.Column>
-            ))}
-          </Grid>
-        </div>
-      )}
-    </>
+      <div className={"articles-div"}>
+        <h3>Videos</h3>
+        {!videoFound ? (
+            <div>Chargement des videos...</div>
+        ) : (
+            <div>
+              <div className={"filter-div"}>
+                <label htmlFor="filter">Filtre par titre: </label>
+                <input type="text" id="filter"
+                       onChange={getFilteredMusics}/>
+              </div>
+              {filteredMusic.length === 0 ? (
+                  <div>Aucune vidéo trouvée.</div>
+              ) : (
+                  <Grid columns={3} doubling stackable>
+                    {filteredMusic.map(video => (
+                        <Grid.Column key={video.id}>
+                          <Segment style={{height: "26em"}}>
+                            <ArticleCard data={video} type={video.type} typeLabel={"Video"}/>
+                          </Segment>
+                        </Grid.Column>
+                    ))}
+                  </Grid>
+              )}
+            </div>
+        )}
+      </div>
   );
 }
