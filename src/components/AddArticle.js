@@ -12,8 +12,8 @@ const AddArticle = (props, user) => {
     const [stock, setStock] = useState(30);
 
     const options = [
-        {key: 'book', text:'Book', value:'book'},
-        {key: 'music', text:'Music', value:'music'},
+        {key: 'book', text:'Livre', value:'book'},
+        {key: 'music', text:'Musique', value:'music'},
         {key: 'photo', text:'Photo', value:'photo'},
         {key: 'video', text:'Video', value:'video'}
     ]
@@ -41,6 +41,13 @@ const AddArticle = (props, user) => {
             .catch(err => console.error(err));
     };
 
+    const setNewType = (e) => {
+        let type = options.filter(option => {
+            return e.target.querySelector('span').innerHTML === option.text
+        });
+        setType(type[0].value);
+    }
+
     return (
         <>
             Ajouter un Article
@@ -57,7 +64,7 @@ const AddArticle = (props, user) => {
                     <label>Price</label>
                     <input placeholder='price' type='number' onChange={(e) => {setPrice(e.target.value)}}/>
                 </Form.Field>
-                <Form.Select fluid label='type' options={options} onChange={(e) => {setType(e.target.value)}} />
+                <Form.Select fluid label='type' options={options} value={type} onChange={(e) => {setNewType(e)}} />
                 <Form.Field>
                     <label>Image</label>
                     <input placeholder='url' onChange={(e) => {setImage(e.target.value)}}/>
