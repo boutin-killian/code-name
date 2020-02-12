@@ -47,15 +47,13 @@ app.post("/login", (req, res) => {
                 return res.status(401).json({message: `${password} is a wrong password`});
             } else {
                 console.log("USER EXISTS");
-                console.log(data[0].fullname);
+                console.log('toto', data[0].fullname);
                 const payload = {
                     email: data[0].mail,
-                    iat: Date.now(),
-                    role: "student"
                 };
                 res.json({
                     token: jwt.sign(payload, secret),
-                    user: {fullname: req.body.name, mail: req.body.email}
+                    user: {fullname: data[0].fullname, mail: req.body.email}
                 });
             }
         }

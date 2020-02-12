@@ -12,7 +12,7 @@ export default function ProfileDetail({ props, user, disconnect }) {
 
     return (
         <>
-          <h3>Bonjour {user.name}</h3>
+          <h3>Bonjour {user.fullname}</h3>
           <div>
             <Button animated onClick={handleClick}>
               <Button.Content visible>Se déconnecter</Button.Content>
