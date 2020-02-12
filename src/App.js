@@ -4,7 +4,6 @@ import { Container, Menu, Icon } from "semantic-ui-react";
 import "./App.css";
 import axios from "axios";
 import Login from "./components/Login";
-import UserSummary from "./components/UserSummary";
 import ArticleList from "./components/ArticleList";
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
