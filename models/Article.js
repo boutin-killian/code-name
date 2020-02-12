@@ -8,7 +8,8 @@ const ArticleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.String,
     image: mongoose.Schema.Types.String,
     user: mongoose.Schema.Types.String,
-    nbSell: mongoose.Schema.Types.Number
+    nbSell: mongoose.Schema.Types.Number,
+    nbVote: mongoose.Schema.Types.Number
 })
 
 module.exports = mongoose.model("Article", ArticleSchema);

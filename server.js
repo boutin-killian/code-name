@@ -178,7 +178,8 @@ app.post("/article", (req, res) => {
             type: req.body.type,
             image: req.body.image,
             user: req.body.user,
-            nbSell: 0
+            nbSell: 0,
+            nbVote: 0
         });
 
         article.save((err, article) => {
@@ -192,6 +193,26 @@ app.post("/article", (req, res) => {
 
     } else {
         console.log("Aucune donnée transmise.");
+    }
+});
+
+app.put('/vote', (req, res) => {
+    console.log('body', req.body);
+    if(req.body._id){
+        const filter = {_id: req.body._id};
+        
+        Article.find(filter).exec((err, article) => {
+            if (err) {
+                return res
+                    .status(500)
+                    .json({message: "could not retrieve articles"});
+            }
+
+            console.log("article", article[0].nbVote + 1);
+            const update = {nbVote: article[0].nbVote + 1}
+            let result = Article.findOneAndUpdate(filter, update, {new: true});
+            return res.status(200).json(result.nbVote);
+        });
     }
 });
 
