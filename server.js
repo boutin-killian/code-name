@@ -1,11 +1,9 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var cors = require("cors");
-
 let users = [];
 const secret = "yeah-bad-secret-but-just-for-testing";
 const DbManager = require("./src/utils/DbManager");
@@ -53,22 +51,46 @@ app.post("/register", (req, res) => {
     const encryptedPassword = bcrypt.hashSync(req.body.password, 10);
     const retrievedEmail = req.body.email.trim();
 
-    const user = {
-      email: retrievedEmail,
-      password: encryptedPassword,
-      name: req.body.name
-    };
+    const user = new User ({
+      mail: retrievedEmail,
+      pwd: encryptedPassword,
+      fullname: req.body.name
+    });
 
+    console.log(retrievedEmail);
     // email address must be unique
-    const userIndex = users.findIndex(user => user.email === retrievedEmail);
-    console.log("userIndex", userIndex);
-    if (userIndex !== -1) {
+    const userIndex = User.find({mail: "edern.rodriguez@orange.fr"}, function(err, data){
+      if(err){
+          console.log(err);
+          return
+      }
+  
+      if(data.length == 0) {
+          console.log("No record found")
+          return
+      }
+  
+      console.log(data.length);
+      console.log(data[0].name);
+  });
+    
+    //const userIndex = users.findIndex(user => user.email === retrievedEmail);
+    //console.log("userIndex", userIndex);
+
+    if (userIndex.email !== undefined) {
+      console.log("USER ALREADY EXISTS");
       return res.status(422).json({
         message: `Conflict. User with ${retrievedEmail} already exists`
       });
     }
-    users = [...users, user];
-    console.log("users", users);
+
+    user.save((err,user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Failed to save score" });
+      }
+    });
+
     const payload = {
       email: user.email,
       iat: Date.now(),
@@ -86,7 +108,6 @@ app.post("/register", (req, res) => {
     if (db) {
       User.find({})
         .sort({ fullname: 1 })
-        .limit(3)
         .exec((err, users) => {
           if (err) {
             return res
