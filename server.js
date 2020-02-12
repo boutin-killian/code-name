@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -7,7 +8,7 @@ var cors = require("cors");
 
 let users = [];
 const secret = "yeah-bad-secret-but-just-for-testing";
-const DbManager = require("./utils/DbManager");
+const DbManager = require("./src/utils/DbManager");
 const db = DbManager();
 
 app.use(cors());
