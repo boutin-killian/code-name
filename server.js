@@ -24,11 +24,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    console.log("login / body", req.body);
     const retrievedEmail = req.body.email;
-    const user = users.find(user => user.email === retrievedEmail);
 
-    const userIndex = User.find({mail: retrievedEmail}, function (err, data) {
+    User.find({mail: retrievedEmail}, function (err, data) {
         if (err) {
             console.log(err);
             return
@@ -59,7 +57,6 @@ app.post("/login", (req, res) => {
                 });
             }
         }
-
     });
 
 
@@ -133,19 +130,32 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/articles", (req, res) => {
-    console.log("/articles");
+
     if (db) {
-        Article.find({})
-            .sort({year: 1})
-            .exec((err, articles) => {
-                if (err) {
-                    return res
-                        .status(500)
-                        .json({message: "could not retrieve articles"});
-                }
-                console.log("articles", articles);
-                return res.status(200).json({articles});
-            });
+        let userId = req.query.user;
+        if (typeof (userId) === "undefined") {
+            Article.find({})
+                .sort({year: 0})
+                .exec((err, articles) => {
+                    if (err) {
+                        return res
+                            .status(500)
+                            .json({message: "could not retrieve articles"});
+                    }
+                    return res.status(200).json({articles});
+                });
+        } else {
+            Article.find({user: userId})
+                .sort({year: 0})
+                .exec((err, articles) => {
+                    if (err) {
+                        return res
+                            .status(500)
+                            .json({message: "could not retrieve articles"});
+                    }
+                    return res.status(200).json({articles});
+                });
+        }
     } else {
         res.status(500).json({message: "DB is NOT ready"});
     }
@@ -154,7 +164,6 @@ app.get("/articles", (req, res) => {
 app.post("/article", (req, res) => {
 
     if (typeof (req.body.title) !== "undefined") {
-
         const article = new Article({
             title: req.body.title,
             year: req.body.year,
@@ -193,6 +202,39 @@ app.post("/article", (req, res) => {
         console.log("Aucune donnée transmise.")
     }
 });
+
+/*Article.find({user: retrievedEmail}, function (err, data) {
+    if (err) {
+        console.log(err);
+        return
+    }
+
+    if (data.length === 0) {
+        console.log("No record found")
+        return res
+            .status(401)
+            .json({message: `No user with email ${retrievedEmail}`});
+    } else {
+        const password = req.body.password;
+        console.log("pwd", data[0].pwd);
+        const isMatchPassword = bcrypt.compareSync(password, data[0].pwd);
+        if (!isMatchPassword) {
+            return res.status(401).json({message: `${password} is a wrong password`});
+        } else {
+            console.log("USER EXISTS");
+            console.log(data[0].fullname);
+            const payload = {
+                email: data[0].mail,
+                iat: Date.now(),
+                role: "student"
+            };
+            res.json({
+                token: jwt.sign(payload, secret),
+                user: {fullname: req.body.name, mail: req.body.email}
+            });
+        }
+    }
+});*/
 
 const PORT = 3002;
 app.listen(PORT, () => {
