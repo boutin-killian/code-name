@@ -5,12 +5,11 @@ import ArticleCard from "./ArticleCard";
 
 const BooksList = (props) => {
 
-    const [bookFound, setMusicFound] = useState([]);
+    const [bookFound, setMusicFound] = useState();
     const [books, setMusics] = useState([]);
     const [filteredMusic, setFilteredMusic] = useState([]);
 
     useEffect(() => {
-        setMusicFound(false);
         axios.get("http://localhost:3002/articles/book").then(res => {
             const books = res.data;
             setMusicFound(true);

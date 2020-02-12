@@ -134,6 +134,7 @@ app.get("/users", (req, res) => {
         return;
     }
 });
+
 // ARTICLES
 app.get("/articles", (req, res) => {
 

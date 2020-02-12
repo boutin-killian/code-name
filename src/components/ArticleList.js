@@ -5,12 +5,11 @@ import ArticleCard from "./ArticleCard";
 
 const ArticlesList = (props) => {
 
-    const [articleFound, setArticleFound] = useState([]);
+    const [articleFound, setArticleFound] = useState();
     const [articles, setArticles] = useState([]);
     const [filteredArticle, setFilteredArticle] = useState([]);
 
     useEffect(() => {
-        setArticleFound(false);
         axios.get("http://localhost:3002/articles").then(res => {
             const articles = res.data;
             setArticleFound(true);
@@ -58,7 +57,7 @@ const ArticlesList = (props) => {
                     ) : (
                         <Grid columns={3} doubling stackable>
                             {filteredArticle.articles.map(article => (
-                                <Grid.Column key={article.id}>
+                                <Grid.Column key={article._id}>
                                     <Segment style={{height: "26em"}}>
                                         <ArticleCard data={article} type={article.type}
                                                      typeLabel={getArticleType(article.type)}/>

@@ -13,19 +13,19 @@ code {
 }
 
 .book {
-  background-color: red !important;
+  background-color: #a4582e !important;
 }
 
 .photo {
-  background-color: blue !important;
+  background-color: #268193 !important;
 }
 
 .video {
-  background-color: green !important;
+  background-color: #3d8048 !important;
 }
 
 .music {
-  background-color: yellow !important;
+  background-color: #a2a15a !important;
 }
 
 .articles-div {

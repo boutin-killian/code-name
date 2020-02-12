@@ -5,7 +5,7 @@ import ArticleCard from "./ArticleCard";
 
 const VideoList = (props) => {
 
-  const [videoFound, setMusicFound] = useState([]);
+  const [videoFound, setMusicFound] = useState(false);
   const [videos, setMusics] = useState([]);
   const [filteredMusic, setFilteredMusic] = useState([]);
 

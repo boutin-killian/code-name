@@ -5,12 +5,11 @@ import ArticleCard from "./ArticleCard";
 
 const PhotosList = (props) => {
 
-    const [photoFound, setPhotoFound] = useState([]);
+    const [photoFound, setPhotoFound] = useState(false);
     const [photos, setPhotos] = useState([]);
     const [filteredPhoto, setFilteredPhoto] = useState([]);
 
     useEffect(() => {
-        setPhotoFound(false);
         axios.get("http://localhost:3002/articles/photo").then(res => {
             const photos = res.data;
             setPhotoFound(true);

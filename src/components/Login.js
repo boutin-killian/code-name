@@ -10,24 +10,25 @@ const Login = ({props, login, register}) => {
 
     const [isLogin, setIsLogin] = useState(true);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    console.log('isLogin', isLogin);
-    if (isLogin) {
-        var success = await login(credentials);
-    } else {
-        var success = await register(credentials);
-    }
+    async function handleSubmit(e) {
+        e.preventDefault();
+        console.log('isLogin', isLogin);
+        var success;
+        if (isLogin) {
+            success = await login(credentials);
+        } else {
+            success = await register(credentials);
+        }
 
-    if(success.isSuccess){
-        props.history.push("/profile");
-    }else{
-        emptyFormFields();
-        alert(success.message);
-    }
-    
-    
-  };
+        if (success.isSuccess) {
+            props.history.push("/profile");
+        } else {
+            emptyFormFields();
+            alert(success.message);
+        }
+
+
+    };
 
     const handleChange = e => {
         setCredentials({...credentials, [e.target.name]: e.target.value});
