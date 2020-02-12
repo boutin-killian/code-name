@@ -162,13 +162,13 @@ function App() {
             </Menu>
           </Container>
           <Switch>
-            <Route path="/profile" render={() => <ProfileDetail user={user} disconnect={disconnect} />} />
+            <Route path="/profile" render={(props) => <ProfileDetail props={props} user={user} disconnect={disconnect} />} />
             <Route path="/cart" component={CartDetails} />
             <Route path="/videos" component={VideosList} />
             <Route path="/photos" component={PhotosList} />
             <Route path="/musiques" component={MusicsList} />
             <Route path="/livres" component={BooksList} />
-            <Route path="/login-register" render={() => <Login login={handleLogin} register={handleRegister} />} />
+            <Route path="/login-register" render={(props) => <Login props={props} login={handleLogin} register={handleRegister} />} />
             <Route path="/" component={ArticleList} />
           </Switch>
         </CartContext.Provider>
