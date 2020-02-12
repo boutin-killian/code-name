@@ -134,15 +134,6 @@ function App() {
                             <Menu.Item>
                                 <Link to="/">Lwar</Link>
                             </Menu.Item>
-                            {isLoggedIn ? (
-                                <Menu.Item>
-                                    <Link to="/login-register">Login/Register</Link>
-                                </Menu.Item>
-                            ) : (
-                                <Menu.Item>
-                                    <Link to="/profile">Mon profil</Link>
-                                </Menu.Item>
-                            )}
                             <Menu.Item>
                                 <Link to="/cart">
                                     <Icon name="cart" size="small"/> <CartSummary/>
@@ -160,6 +151,18 @@ function App() {
                             <Menu.Item>
                                 <Link to="/livres">Livres</Link>
                             </Menu.Item>
+                            <Menu.Menu position='right'>
+                                {isLoggedIn ? (
+                                    <Menu.Item>
+                                        <Link to="/login-register">Login/Register</Link>
+                                    </Menu.Item>
+                                ) : (
+                                    <Menu.Item>
+                                        <Link to="/profile">Mon profil</Link>
+                                    </Menu.Item>
+                                )}
+                            </Menu.Menu>
+
                         </Menu>
                     </Container>
                     <Switch>
