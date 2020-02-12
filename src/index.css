@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.book {
+  background-color: red !important;
+}
+
+.photo {
+  background-color: blue !important;
+}
+
+.video {
+  background-color: green !important;
+}
+
+.music {
+  background-color: yellow !important;
+}
+
+.actions .icon {
+  cursor: pointer;
+  width: 150px !important;
+  padding-bottom: 20px !important;
+}
+
+.actions .icon.trash {
+  background-color: #ffafaf;
+}
+
+.actions .icon.euro {
+  background-color: #7db17d;
+}

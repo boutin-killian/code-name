@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Grid, Segment } from "semantic-ui-react";
-import Book from "./BookCard";
+import ArticleCard from "./ArticleCard";
 
-export default function BookList() {
-  const [books, setBooks] = useState([]);
+export default function BooksList() {
+  const [books, setMusics] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/products").then(res => {
+    axios.get("http://localhost:3001/articles?type=book").then(res => {
       const books = res.data;
-      setBooks(books);
+      setMusics(books);
     });
   }, []);
-  // grid layout based on https://github.com/Semantic-Org/Semantic-UI-React/blob/master/docs/src/layouts/ResponsiveLayout.js
+
   return (
     <>
       <h3>Livres</h3>
@@ -21,10 +21,10 @@ export default function BookList() {
       ) : (
         <div>
           <Grid columns={3} doubling stackable>
-            {books.map(b => (
-              <Grid.Column key={b.id}>
+            {books.map(book => (
+              <Grid.Column key={book.id}>
                 <Segment style={{ height: "26em" }}>
-                  <Book data={b} />
+                  <ArticleCard data={book} />
                 </Segment>
               </Grid.Column>
             ))}

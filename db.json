@@ -1,100 +1,173 @@
 {
-    "products": [{
-            "id": 9780596806750,
-            "title": "JavaScript Patterns: Build Better Applications with Coding and Design Patterns",
-            "author": {
-                "lastName": "Stefanov",
-                "firstName": "Stoyan"
-            },
-            "publisher": "O'Reilly Media",
-            "year": 2010,
-            "price": 29.99,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/51%2BSiphz7AL._SL200_.jpg"
+  "articles": [
+    {
+      "id": 9780596806750,
+      "title": "JavaScript Patterns: Build Better Applications with Coding and Design Patterns",
+      "author": {
+        "lastName": "Stefanov",
+        "firstName": "Stoyan"
+      },
+      "publisher": "O'Reilly Media",
+      "year": 2010,
+      "price": 29.99,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51%2BSiphz7AL._SL200_.jpg"
+    },
+    {
+      "id": 9780596517748,
+      "title": "JavaScript: The Good Parts",
+      "author": {
+        "lastName": "Crockford",
+        "firstName": "Douglas"
+      },
+      "publisher": "O'Reilly Media",
+      "year": 2008,
+      "price": 29.99,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SL200_.jpg"
+    },
+    {
+      "id": 9781449331818,
+      "title": "Learning JavaScript Design Patterns",
+      "author": {
+        "lastName": "Osmani",
+        "firstName": "Addy"
+      },
+      "publisher": "O'Reilly Media",
+      "year": 2012,
+      "price": 44.99,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51jEMnP6UGL._SL200_.jpg"
+    },
+    {
+      "id": 9781593279509,
+      "title": "Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming",
+      "author": {
+        "lastName": "Haverbeke",
+        "firstName": "Marijn"
+      },
+      "publisher": "No Starch Press",
+      "year": 2018,
+      "price": 39.95,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51I9naPg55L._SL200_.jpg"
+    },
+    {
+      "id": 9781617292859,
+      "title": "Secrets of the JavaScript Ninja, Second Edition",
+      "author": {
+        "lastName": "Resig",
+        "firstName": "John"
+      },
+      "publisher": "Manning Publications",
+      "year": 2016,
+      "price": 44.99,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51sxvZlbH5L._SL200_.jpg"
+    },
+    {
+      "id": 9780132350884,
+      "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+      "author": {
+        "lastName": "Martin",
+        "firstName": "Robert C."
+      },
+      "publisher": "Prentice Hall",
+      "year": 2008,
+      "price": 34.47,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/41TINACY3hL._SL200_.jpg"
+    },
+    {
+      "id": 9780201633610,
+      "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+      "author": [
+        {
+          "lastName": "Gamma",
+          "firstName": "Erich "
         },
         {
-            "id": 9780596517748,
-            "title": "JavaScript: The Good Parts",
-            "author": {
-                "lastName": "Crockford",
-                "firstName": "Douglas"
-            },
-            "publisher": "O'Reilly Media",
-            "year": 2008,
-            "price": 29.99,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SL200_.jpg"
+          "lastName": "Helm",
+          "firstName": "Richard "
         },
         {
-            "id": 9781449331818,
-            "title": "Learning JavaScript Design Patterns",
-            "author": {
-                "lastName": "Osmani",
-                "firstName": "Addy"
-            },
-            "publisher": "O'Reilly Media",
-            "year": 2012,
-            "price": 44.99,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/51jEMnP6UGL._SL200_.jpg"
+          "lastName": "Johnson",
+          "firstName": "Ralph "
         },
         {
-            "id": 9781593279509,
-            "title": "Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming",
-            "author": {
-                "lastName": "Haverbeke",
-                "firstName": "Marijn"
-            },
-            "publisher": "No Starch Press",
-            "year": 2018,
-            "price": 39.95,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/51I9naPg55L._SL200_.jpg"
-        },
-        {
-            "id": 9781617292859,
-            "title": "Secrets of the JavaScript Ninja, Second Edition",
-            "author": {
-                "lastName": "Resig",
-                "firstName": "John"
-            },
-            "publisher": "Manning Publications",
-            "year": 2016,
-            "price": 44.99,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/51sxvZlbH5L._SL200_.jpg"
-        },
-        {
-            "id": 9780132350884,
-            "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
-            "author": {
-                "lastName": "Martin",
-                "firstName": "Robert C."
-            },
-            "publisher": "Prentice Hall",
-            "year": 2008,
-            "price": 34.47,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/41TINACY3hL._SL200_.jpg"
-        },
-        {
-            "id": 9780201633610,
-            "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
-            "author": [{
-                    "lastName": "Gamma",
-                    "firstName": "Erich "
-                },
-                {
-                    "lastName": "Helm",
-                    "firstName": "Richard "
-                },
-                {
-                    "lastName": "Johnson",
-                    "firstName": "Ralph "
-                },
-                {
-                    "lastName": "Vlissides",
-                    "firstName": "John"
-                }
-            ],
-            "publisher": "Prentice Hall",
-            "year": 2008,
-            "price": 34.47,
-            "image": "https://images-na.ssl-images-amazon.com/images/I/51szD9HC9pL._SL200_.jpg"
+          "lastName": "Vlissides",
+          "firstName": "John"
         }
-    ]
+      ],
+      "publisher": "Prentice Hall",
+      "year": 2008,
+      "price": 34.47,
+      "type": "book",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51szD9HC9pL._SL200_.jpg"
+    },
+    {
+      "id": 9780201633611,
+      "title": "Mes vacances aux ski",
+      "author": [
+        {
+          "lastName": "BOUTIN",
+          "firstName": "Killian"
+        },
+        {
+          "lastName": "RODRIGUEZ",
+          "firstName": "Edern"
+        }
+      ],
+      "publisher": "Youtoube",
+      "year": 2020,
+      "price": 40.00,
+      "type": "video",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51szD9HC9pL._SL200_.jpg"
+    },
+    {
+      "id": 9780201633612,
+      "title": "Ma formation sur React",
+      "author": [
+        {
+          "lastName": "Medjdoub",
+          "firstName": "Samir"
+        }
+      ],
+      "publisher": "Site web",
+      "year": 2019,
+      "price": 99.00,
+      "type": "video",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51szD9HC9pL._SL200_.jpg"
+    },
+    {
+      "id": 9780201633613,
+      "title": "La photo du photographe",
+      "author": [
+        {
+          "lastName": "LEPIEZ",
+          "firstName": "Nicolas"
+        }
+      ],
+      "publisher": "Pinterest",
+      "year": 2019,
+      "price": 250.00,
+      "type": "photo",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51szD9HC9pL._SL200_.jpg"
+    },
+    {
+      "id": 9780201633613,
+      "title": "La musique est bonne",
+      "author": [
+        {
+          "lastName": "GOLDMAN",
+          "firstName": "Jean-Jacques"
+        }
+      ],
+      "publisher": "Pinterest",
+      "year": 1739,
+      "price": 4.00,
+      "type": "music",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51szD9HC9pL._SL200_.jpg"
+    }
+  ]
 }
