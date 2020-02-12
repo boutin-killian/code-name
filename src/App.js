@@ -163,7 +163,7 @@ function App() {
             </Menu>
           </Container>
           <Switch>
-            <Route path="/profile" component={ProfileDetail} />
+            <Route path="/profile" render={() => <ProfileDetail user={user} disconnect={disconnect} />} />
             <Route path="/cart" component={CartDetails} />
             <Route path="/videos" component={VideosList} />
             <Route path="/photos" component={PhotosList} />
