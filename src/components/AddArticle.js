@@ -42,17 +42,17 @@ const AddArticle = (props, user) => {
                 </Form.Field>
                 <Form.Field>
                     <label>Year</label>
-                    <input placeholder='year' type='date' onChange={(e) => {setYear(e.target.value)}}/>
+                    <input placeholder='year' type='number' onChange={(e) => {setYear(e.target.value)}}/>
                 </Form.Field>
                 <Form.Field>
                     <label>Price</label>
                     <input placeholder='price' type='number' onChange={(e) => {setPrice(e.target.value)}}/>
                 </Form.Field>
                 <Form.Field label='Type' control='select' onChange={(e) => {setType(e.target.value)}}>
-                    <option value='male'>Book</option>
-                    <option value='female'>Music</option>
-                    <option value='female'>Photo</option>
-                    <option value='female'>Video</option>
+                    <option value='book'>Book</option>
+                    <option value='music'>Music</option>
+                    <option value='photo'>Photo</option>
+                    <option value='video'>Video</option>
                 </Form.Field>
                 <Form.Field>
                     <label>Image</label>
