@@ -152,7 +152,7 @@ function App() {
                                 <Link to="/livres">Livres</Link>
                             </Menu.Item>
                             <Menu.Menu position='right'>
-                                {isLoggedIn ? (
+                                {!isLoggedIn ? (
                                     <Menu.Item>
                                         <Link to="/login-register">Login/Register</Link>
                                     </Menu.Item>
@@ -166,7 +166,7 @@ function App() {
                         </Menu>
                     </Container>
                     <Switch>
-                        {!isLoggedIn && (
+                        {isLoggedIn && (
                             <Route path="/profile" render={() => <ProfileDetail user={user} disconnect={disconnect}/>}/>
                         )}
                         <Route path="/cart" component={CartDetails}/>
