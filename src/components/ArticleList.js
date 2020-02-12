@@ -3,14 +3,15 @@ import axios from "axios";
 import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function ArticlesList() {
+const ArticlesList = (props) => {
+
     const [articleFound, setArticleFound] = useState([]);
     const [articles, setArticles] = useState([]);
     const [filteredArticle, setFilteredArticle] = useState([]);
 
     useEffect(() => {
         setArticleFound(false);
-        axios.get("http://localhost:3001/articles").then(res => {
+        axios.get("http://localhost:3002/articles").then(res => {
             const articles = res.data;
             setArticleFound(true);
             setArticles(articles);
@@ -23,6 +24,21 @@ export default function ArticlesList() {
             let articleTitle = article.title.toLowerCase();
             return articleTitle.indexOf(e.target.value.toLowerCase()) !== -1
         }));
+    }
+
+    function getArticleType(type) {
+        switch (type) {
+            case "photo":
+                return "Photo";
+            case "video":
+                return "Video";
+            case "music":
+                return "Musique";
+            case "book":
+                return "Livre";
+            default:
+                return "Livre";
+        }
     }
 
     return (
@@ -41,10 +57,11 @@ export default function ArticlesList() {
                         <div>Aucune article trouvé.</div>
                     ) : (
                         <Grid columns={3} doubling stackable>
-                            {filteredArticle.map(article => (
+                            {filteredArticle.articles.map(article => (
                                 <Grid.Column key={article.id}>
                                     <Segment style={{height: "26em"}}>
-                                        <ArticleCard data={article} type={article.type} typeLabel={"Musique"}/>
+                                        <ArticleCard data={article} type={article.type}
+                                                     typeLabel={getArticleType(article.type)}/>
                                     </Segment>
                                 </Grid.Column>
                             ))}
@@ -54,4 +71,5 @@ export default function ArticlesList() {
             )}
         </div>
     );
-}
+};
+export default ArticlesList;

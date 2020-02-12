@@ -26,11 +26,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    console.log("login / body", req.body);
     const retrievedEmail = req.body.email;
-    const user = users.find(user => user.email === retrievedEmail);
 
-    const userIndex = User.find({mail: retrievedEmail}, function (err, data) {
+    User.find({mail: retrievedEmail}, function (err, data) {
         if (err) {
             console.log(err);
             return
@@ -61,7 +59,6 @@ app.post("/login", (req, res) => {
                 return;
             }
         }
-
     });
 
 
@@ -136,21 +133,34 @@ app.get("/users", (req, res) => {
         return;
     }
 });
-
+// ARTICLES
 app.get("/articles", (req, res) => {
-    console.log("/articles");
+
     if (db) {
-        Article.find({})
-            .sort({year: 1})
-            .exec((err, articles) => {
-                if (err) {
-                    return res
-                        .status(500)
-                        .json({message: "could not retrieve articles"});
-                }
-                console.log("articles", articles);
-                return res.status(200).json({articles});
-            });
+        let userId = req.query.user;
+        if (typeof (userId) === "undefined") {
+            Article.find({})
+                .sort({year: 0})
+                .exec((err, articles) => {
+                    if (err) {
+                        return res
+                            .status(500)
+                            .json({message: "could not retrieve articles"});
+                    }
+                    return res.status(200).json({articles});
+                });
+        } else {
+            Article.find({user: userId})
+                .sort({year: 0})
+                .exec((err, articles) => {
+                    if (err) {
+                        return res
+                            .status(500)
+                            .json({message: "could not retrieve articles"});
+                    }
+                    return res.status(200).json({articles});
+                });
+        }
     } else {
         res.status(500).json({message: "DB is NOT ready"});
         return;
@@ -160,7 +170,6 @@ app.get("/articles", (req, res) => {
 app.post("/article", (req, res) => {
 
     if (typeof (req.body.title) !== "undefined") {
-
         const article = new Article({
             title: req.body.title,
             year: req.body.year,
@@ -177,28 +186,34 @@ app.post("/article", (req, res) => {
                 //res.status(500).json({message: "Failed to save user"});
                 return;
             }
-            return article;
+            return res.status(200).json({article});
         });
-        if (db) {
-            Article.find({})
-                .sort({year: 1})
-                .exec((err, articles) => {
-                    if (err) {
-                        return res
-                            .status(500)
-                            .json({message: "could not retrieve articles"});
-                    }
-                    console.log("articles", articles);
-                    return res.status(200).json({articles});
-                });
-        } else {
-            res.status(500).json({message: "DB is NOT ready"});
-            return;
-        }
 
     } else {
         console.log("Aucune donnée transmise.");
     }
+});
+
+// BOOKS
+app.get("/articles/:type", (req, res) => {
+  console.log("------------------------/articles/books------------------------");
+  var type  = req.params.type;
+  console.log(type);
+  if (db) {
+      Article.find({type: type})
+          .sort({year: 1})
+          .exec((err, articles) => {
+              if (err) {
+                  return res
+                      .status(500)
+                      .json({message: "could not retrieve articles"});
+              }
+              console.log("articles", articles);
+              return res.status(200).json({articles});
+          });
+  } else {
+      res.status(500).json({message: "DB is NOT ready"});
+  }
 });
 
 const PORT = 3002;

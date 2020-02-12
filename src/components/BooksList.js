@@ -3,55 +3,58 @@ import axios from "axios";
 import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function MusicsList() {
-  const [bookFound, setMusicFound] = useState([]);
-  const [books, setMusics] = useState([]);
-  const [filteredMusic, setFilteredMusic] = useState([]);
+const BooksList = (props) => {
 
-  useEffect(() => {
-    setMusicFound(false);
-    axios.get("http://localhost:3001/articles?type=book").then(res => {
-      const books = res.data;
-      setMusicFound(true);
-      setMusics(books);
-      setFilteredMusic(books);
-    });
-  }, []);
+    const [bookFound, setMusicFound] = useState([]);
+    const [books, setMusics] = useState([]);
+    const [filteredMusic, setFilteredMusic] = useState([]);
 
-  function getFilteredMusics(e) {
-    setFilteredMusic(books.filter((book) => {
-      let bookTitle = book.title.toLowerCase();
-      return bookTitle.indexOf(e.target.value.toLowerCase()) !== -1
-    }));
-  }
+    useEffect(() => {
+        setMusicFound(false);
+        axios.get("http://localhost:3002/articles/book").then(res => {
+            const books = res.data;
+            setMusicFound(true);
+            setMusics(books);
+            setFilteredMusic(books);
+        });
+    }, []);
 
-  return (
-      <div className={"articles-div"}>
-        <h3>Livres</h3>
-        {!bookFound ? (
-            <div>Chargement des livres...</div>
-        ) : (
-            <div>
-              <div className={"filter-div"}>
-                <label htmlFor="filter">Filtre par titre: </label>
-                <input type="text" id="filter"
-                       onChange={getFilteredMusics}/>
-              </div>
-              {filteredMusic.length === 0 ? (
-                  <div>Aucun livre trouvé.</div>
-              ) : (
-                  <Grid columns={3} doubling stackable>
-                    {filteredMusic.map(book => (
-                        <Grid.Column key={book.id}>
-                          <Segment style={{height: "26em"}}>
-                            <ArticleCard data={book} type={book.type} typeLabel={"Livre"}/>
-                          </Segment>
-                        </Grid.Column>
-                    ))}
-                  </Grid>
-              )}
-            </div>
-        )}
-      </div>
-  );
-}
+    function getFilteredMusics(e) {
+        setFilteredMusic(books.filter((book) => {
+            let bookTitle = book.title.toLowerCase();
+            return bookTitle.indexOf(e.target.value.toLowerCase()) !== -1
+        }));
+    }
+
+    return (
+        <div className={"articles-div"}>
+            <h3>Livres</h3>
+            {!bookFound ? (
+                <div>Chargement des livres...</div>
+            ) : (
+                <div>
+                    <div className={"filter-div"}>
+                        <label htmlFor="filter">Filtre par titre: </label>
+                        <input type="text" id="filter"
+                               onChange={getFilteredMusics}/>
+                    </div>
+                    {filteredMusic.length === 0 ? (
+                        <div>Aucun livre trouvé.</div>
+                    ) : (
+                        <Grid columns={3} doubling stackable>
+                            {filteredMusic.articles.map(book => (
+                                <Grid.Column key={book.id}>
+                                    <Segment style={{height: "26em"}}>
+                                        <ArticleCard data={book} type={book.type} typeLabel={"Livre"}/>
+                                    </Segment>
+                                </Grid.Column>
+                            ))}
+                        </Grid>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default BooksList;
