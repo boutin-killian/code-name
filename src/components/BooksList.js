@@ -24,7 +24,7 @@ export default function BooksList() {
             {books.map(book => (
               <Grid.Column key={book.id}>
                 <Segment style={{ height: "26em" }}>
-                  <ArticleCard data={book} />
+                  <ArticleCard data={book} type={book.type} typeLabel={"Livre"} />
                 </Segment>
               </Grid.Column>
             ))}

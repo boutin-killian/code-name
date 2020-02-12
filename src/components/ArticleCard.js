@@ -3,12 +3,10 @@ import {useSpring, animated} from "react-spring";
 import {Card, Image, Icon} from "semantic-ui-react";
 import {CartContext} from "../App";
 
-export default function ArticleCard({data}) {
+export default function ArticleCard({data, type, typeLabel}) {
     const {addToCart} = useContext(CartContext);
     const [anim, setAnim] = useState(false);
     const props = useSpring({to: {x: anim ? 0 : 1}});
-
-    let itemType = (data.type === "video") ? "Video" : ((data.type === "photo") ? "Photo" : ((data.type === "book") ? "Livre" : "Musique"));
 
     function handleAddToCart(data) {
         setAnim(!anim);
@@ -16,7 +14,7 @@ export default function ArticleCard({data}) {
     }
 
     return (
-        <Card style={{height: "100%"}} className={data.type}>
+        <Card style={{height: "100%"}} className={type}>
             <Image src={data.image} wrapped ui={false} style={{width: 120}}/>
             <Card.Content>
                 <Card.Header>{data.title}</Card.Header>
@@ -24,7 +22,7 @@ export default function ArticleCard({data}) {
                     <span className="date">publié en {data.year}</span>
                 </Card.Meta>
                 <Card.Meta>
-                    <span className="type">{itemType}</span>
+                    <span className="type">{typeLabel}</span>
                 </Card.Meta>
             </Card.Content>
             <Card.Content extra>

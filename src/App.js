@@ -21,7 +21,7 @@ const STORAGE_KEY = "react-log";
 function App() {
     const [cart, setCart] = useState({});
     const [nbArticles, setNbArticles] = useState(0);
-    const [isLoginVisible, setIsLoginVisible] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState({name: "", email: ""});
 
     const handleLogin = credentials => {
@@ -34,7 +34,7 @@ function App() {
             .then(res => {
                 console.log("res.data", res.data);
                 saveTokenInLocalstorage(res.data.token);
-                setIsLoginVisible(false);
+                setIsLoggedIn(true);
                 setUser(res.data.user);
             })
             .catch(err => console.error(err));
@@ -50,7 +50,7 @@ function App() {
             .then(res => {
                 console.log("res.data", res.data);
                 saveTokenInLocalstorage(res.data.token);
-                setIsLoginVisible(false);
+                setIsLoggedIn(true);
                 setUser(res.data.user);
             })
             .catch(err => console.error(err));
@@ -62,7 +62,7 @@ function App() {
 
     const disconnect = () => {
         localStorage.removeItem(STORAGE_KEY);
-        setIsLoginVisible(true);
+        setIsLoggedIn(false);
     };
 
     //!\ order matters: first useEffect() retrieves from localStorage, second useEffect persists in localStorage
@@ -125,57 +125,60 @@ function App() {
         emptyCart
     };
 
-  return (
-    <>
-      <Router>
-        <CartContext.Provider value={contextValue}>
-          <Container>
-            <Menu stackable>
-              <Menu.Item>
-                <Link to="/">Lwar</Link>
-              </Menu.Item>
-              {isLoginVisible ? (
-                <Menu.Item>
-                  <Link to="/login-register">Login/Register</Link>
-                </Menu.Item>
-              ) : (
-                <Menu.Item>
-                  <Link to="/profile">Mon profil</Link>
-                </Menu.Item>
-              )}
-              <Menu.Item>
-                <Link to="/cart">
-                  <Icon name="cart" size="small" /> <CartSummary />
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to="/videos">Videos</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to="/photos">Photos</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to="/musiques">Musiques</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to="/livres">Livres</Link>
-              </Menu.Item>
-            </Menu>
-          </Container>
-          <Switch>
-            <Route path="/profile" render={() => <ProfileDetail user={user} disconnect={disconnect} />} />
-            <Route path="/cart" component={CartDetails} />
-            <Route path="/videos" component={VideosList} />
-            <Route path="/photos" component={PhotosList} />
-            <Route path="/musiques" component={MusicsList} />
-            <Route path="/livres" component={BooksList} />
-            <Route path="/login-register" render={() => <Login login={handleLogin} register={handleRegister} />} />
-            <Route path="/" component={ArticleList} />
-          </Switch>
-        </CartContext.Provider>
-      </Router>
-    </>
-  );
+    return (
+        <>
+            <Router>
+                <CartContext.Provider value={contextValue}>
+                    <Container>
+                        <Menu stackable>
+                            <Menu.Item>
+                                <Link to="/">Lwar</Link>
+                            </Menu.Item>
+                            {isLoggedIn ? (
+                                <Menu.Item>
+                                    <Link to="/login-register">Login/Register</Link>
+                                </Menu.Item>
+                            ) : (
+                                <Menu.Item>
+                                    <Link to="/profile">Mon profil</Link>
+                                </Menu.Item>
+                            )}
+                            <Menu.Item>
+                                <Link to="/cart">
+                                    <Icon name="cart" size="small"/> <CartSummary/>
+                                </Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/videos">Videos</Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/photos">Photos</Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/musiques">Musiques</Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/livres">Livres</Link>
+                            </Menu.Item>
+                        </Menu>
+                    </Container>
+                    <Switch>
+                        {!isLoggedIn && (
+                            <Route path="/profile" render={() => <ProfileDetail user={user} disconnect={disconnect}/>}/>
+                        )}
+                        <Route path="/cart" component={CartDetails}/>
+                        <Route path="/videos" component={VideosList}/>
+                        <Route path="/photos" component={PhotosList}/>
+                        <Route path="/musiques" component={MusicsList}/>
+                        <Route path="/livres" component={BooksList}/>
+                        <Route path="/login-register"
+                               render={() => <Login login={handleLogin} register={handleRegister}/>}/>
+                        <Route path="/" component={ArticleList}/>
+                    </Switch>
+                </CartContext.Provider>
+            </Router>
+        </>
+    );
 }
 
 export default App;
