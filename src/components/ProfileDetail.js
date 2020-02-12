@@ -1,73 +1,53 @@
 import React, { useState } from 'react';
-import { Form , Segment } from 'semantic-ui-react';
+import { Form , Segment, Container } from 'semantic-ui-react';
 
-export default function ProfileDetail({login, register}) {
-    const [credentials, setCredentials] = useState({
-        name: 'test',
-        email: '',
-        password: ''
-    });
-
-    const [isLogin, setIsLogin] = useState(true);
-
-    const handleSubmit = e => {
+export default function ProfileDetail({ props, user, disconnect }) {
+    const handleClick = e => {
         e.preventDefault();
-        if (isLogin) {
-            login(credentials);
-        } else {
-            register(credentials);
-        }
-        emptyFormFields();
-    };
+        disconnect();
+        props.history.push('/');
+    }
 
-    const handleChange = e => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+    const handleSubmit = () => {
+    }
 
-    const emptyFormFields = () => {
-        setCredentials({
-            name: '',
-            email: '',
-            password: ''
-        });
-    };
+    const handleChangeName = (e) => {
+        user.name = e.target.value;
+    }
+
+    const handleChangeMail = (e) => {
+        user.email = e.target.value;
+    }
 
     return (
         <Segment>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group widths="equal">
+            <Form class='ui form' onSubmit={handleSubmit}>
+                <Form.Group unstackable widths={2}>
+                <Container>
                     <Form.Input
                         fluid
                         label='Nom'
                         placeholder="Nom"
                         name='Name'
-                        value={credentials.name}
-                        onChange={handleChange}
-                    >
-                    </Form.Input>
+                        value={user.name}
+                        onChange={handleChangeName} />
                     <Form.Input
                         fluid
                         label="Email"
                         placeholder="Email"
                         name="email"
-                        value={credentials.email}
-                        onChange={handleChange}
-                    />
-                    <Form.Input
-                        fluid
-                        type="password"
-                        label="Mot de passe"
-                        placeholder="Mot de passe"
-                        name="password"
-                        value={credentials.password}
-                        onChange={handleChange}
-                    />
+                        value={user.email}
+                        onChange={handleChangeMail} />
+                </Container>
                 </Form.Group>
                 <Form.Group inline>
+                    <Form.Button>
+                        Enregistrer
+                    </Form.Button>
+                    <Form.Button>
+                        Annuler
+                    </Form.Button>
                 </Form.Group>
-                <Form.Button>
-                    Enregistrer
-                </Form.Button>
             </Form>
         </Segment>
     );
