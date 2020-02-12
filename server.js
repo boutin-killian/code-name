@@ -177,23 +177,8 @@ app.post("/article", (req, res) => {
                 //res.status(500).json({message: "Failed to save user"});
                 return;
             }
-            return article;
+            return res.status(200).json({article});
         });
-        if (db) {
-            Article.find({})
-                .sort({year: 0})
-                .exec((err, articles) => {
-                    if (err) {
-                        return res
-                            .status(500)
-                            .json({message: "could not retrieve articles"});
-                    }
-                    console.log("articles", articles);
-                    return res.status(200).json({articles});
-                });
-        } else {
-            res.status(500).json({message: "DB is NOT ready"});
-        }
 
     } else {
         console.log("Aucune donnée transmise.")
