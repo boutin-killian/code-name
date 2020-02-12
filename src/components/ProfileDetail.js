@@ -78,6 +78,7 @@ const ProfileDetail = ({props, user, disconnect}) => {
                                     <Grid.Column key={article._id}>
                                         <Segment style={{height: "26em"}}>
                                             {article.nbSell} {getArticleType(article.type)} vendus
+                                            {article.nbRemain} {getArticleType(article.type)} restant
                                             <ArticleCard data={article} type={article.type}
                                                          typeLabel={getArticleType(article.type)}/>
                                         </Segment>

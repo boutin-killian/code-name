@@ -106,7 +106,7 @@ function App() {
     useEffect(() => {
         // only strings in localStorage
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
-        document.title = `caddie(${nbArticles})`;
+        document.title = `LWAR - Caddie (${nbArticles})`;
     }, [cart, nbArticles]);
 
     function addToCart(item) {

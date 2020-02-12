@@ -9,6 +9,7 @@ const AddArticle = (props, user) => {
     const [price, setPrice] = useState(0);
     const [type, setType] = useState("");
     const [image, setImage] = useState("");
+    const [stock, setStock] = useState(30);
 
     const options = [
         {key: 'book', text:'Book', value:'book'},
@@ -24,7 +25,8 @@ const AddArticle = (props, user) => {
             'price' : price,
             'type' : type,
             'image' : image,
-            'user' : user._id
+            'user' : user._id,
+            'stock' : stock
         };
 
         axios
@@ -59,6 +61,10 @@ const AddArticle = (props, user) => {
                 <Form.Field>
                     <label>Image</label>
                     <input placeholder='url' onChange={(e) => {setImage(e.target.value)}}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>Stock</label>
+                    <input placeholder='stock' value={stock} type='number' onChange={(e) => {setStock(e.target.value)}}/>
                 </Form.Field>
 
                 <Button type='submit'>Submit</Button>

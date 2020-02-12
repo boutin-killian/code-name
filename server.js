@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var cors = require("cors");
 let users = [];
+var mongoose = require('mongoose');
+
 const secret = "yeah-bad-secret-but-just-for-testing";
 
 const DbManager = require("./src/utils/DbManager");
@@ -173,13 +175,15 @@ app.post("/article", (req, res) => {
 
     if (typeof (req.body.title) !== "undefined") {
         const article = new Article({
+            _id: mongoose.Types.ObjectId(),
             title: req.body.title,
             year: req.body.year,
             price: req.body.price,
             type: req.body.type,
             image: req.body.image,
             user: req.body.user,
-            nbSell: 0
+            nbSell: 0,
+            nbStock: req.body.stock
         });
 
         article.save((err, article) => {
@@ -208,7 +212,8 @@ app.put("/articles", async (req, res) => {
                     .json({message: "could not retrieve articles"});
             }
             var newNbSell = articles.nbSell + req.body.nbSell;
-            let doc = await Article.findOneAndUpdate({ _id: req.body._id},{nbSell: newNbSell }, {
+            var newNbStock = articles.nbStock - req.body.nbSell;
+            let doc = await Article.findOneAndUpdate({ _id: req.body._id},{nbSell: newNbSell,nbStock: newNbStock}, {
                 new: true
               });
             return res.status(200).json(doc.nbSell);

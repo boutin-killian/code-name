@@ -19,6 +19,9 @@ const ArticleCard = ({data, type, typeLabel}) => {
             <Card.Content>
                 <Card.Header>{data.title}</Card.Header>
                 <Card.Meta>
+                    <span className="date">Restant : {data.nbStock}</span>
+                </Card.Meta>
+                <Card.Meta>
                     <span className="date">publié en {data.year}</span>
                 </Card.Meta>
                 <Card.Meta>
