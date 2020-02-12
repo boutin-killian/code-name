@@ -181,7 +181,7 @@ app.post("/article", (req, res) => {
         });
         if (db) {
             Article.find({})
-                .sort({year: 1})
+                .sort({year: 0})
                 .exec((err, articles) => {
                     if (err) {
                         return res

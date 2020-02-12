@@ -10,7 +10,7 @@ export default function ArticlesList() {
 
     useEffect(() => {
         setArticleFound(false);
-        axios.get("http://localhost:3001/articles").then(res => {
+        axios.get("http://localhost:3002/articles").then(res => {
             const articles = res.data;
             setArticleFound(true);
             setArticles(articles);
@@ -41,7 +41,7 @@ export default function ArticlesList() {
                         <div>Aucune article trouvé.</div>
                     ) : (
                         <Grid columns={3} doubling stackable>
-                            {filteredArticle.map(article => (
+                            {filteredArticle.articles.map(article => (
                                 <Grid.Column key={article.id}>
                                     <Segment style={{height: "26em"}}>
                                         <ArticleCard data={article} type={article.type} typeLabel={"Musique"}/>
