@@ -57,39 +57,34 @@ app.post("/register", (req, res) => {
       fullname: req.body.name
     });
 
-    console.log(retrievedEmail);
     // email address must be unique
-    const userIndex = User.find({mail: "edern.rodriguez@orange.fr"}, function(err, data){
+    const userIndex = User.find({mail: retrievedEmail}, function(err, data){
       if(err){
           console.log(err);
           return
       }
   
+      console.log(data.length);
       if(data.length == 0) {
           console.log("No record found")
-          return
+          user.save((err,user) => {
+            if (err) {
+              console.error(err);
+              /*return res.status(500).json({ message: "Failed to save user" });*/
+            }
+          });
+          return;
+      }
+      else{
+        console.log("USER ALREADY EXISTS");
+        console.log(data[0].name);
+        //return false;
+        return res.status(422).json({
+          message: `Conflict. User with ${retrievedEmail} already exists`
+        });
       }
   
-      console.log(data.length);
-      console.log(data[0].name);
   });
-    
-    //const userIndex = users.findIndex(user => user.email === retrievedEmail);
-    //console.log("userIndex", userIndex);
-
-    if (userIndex.email !== undefined) {
-      console.log("USER ALREADY EXISTS");
-      return res.status(422).json({
-        message: `Conflict. User with ${retrievedEmail} already exists`
-      });
-    }
-
-    user.save((err,user) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Failed to save score" });
-      }
-    });
 
     const payload = {
       email: user.email,
