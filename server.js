@@ -196,6 +196,29 @@ app.post("/article", (req, res) => {
     }
 });
 
+app.put("/articles", async (req, res) => {
+    console.log("tryingToPut ",req.body._id);
+    console.log("tryingToPut ",req.body.nbSell);
+    if (typeof (req.body._id) !== "undefined") {
+
+        var article = Article.findOne({_id: req.body._id}).exec(async (err, articles) => {
+            if (err) {
+                return res
+                    .status(500)
+                    .json({message: "could not retrieve articles"});
+            }
+            var newNbSell = articles.nbSell + req.body.nbSell;
+            let doc = await Article.findOneAndUpdate({ _id: req.body._id},{nbSell: newNbSell }, {
+                new: true
+              });
+            return res.status(200).json(doc.nbSell);
+        });
+
+    } else {
+        console.log("Aucune donnée transmise.")
+    }
+});
+
 
 app.get("/articles/:type", (req, res) => {
   var type  = req.params.type;
@@ -216,6 +239,8 @@ app.get("/articles/:type", (req, res) => {
       res.status(500).json({message: "DB is NOT ready"});
   }
 });
+
+
 
 const PORT = 3002;
 app.listen(PORT, () => {

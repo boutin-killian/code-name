@@ -2,8 +2,8 @@ import React, {useContext} from "react";
 import {Table, Icon} from "semantic-ui-react";
 import {CartContext} from "../App";
 
-const CartDetails = () => {
-    const {cart, addToCart, removeFromCart, emptyCart} = useContext(
+export default function CartDetails() {
+    const {cart, addToCart, removeFromCart, emptyCart, UpdateSellNumber} = useContext(
         CartContext
     );
     return (
@@ -17,7 +17,7 @@ const CartDetails = () => {
                 >Vider le caddie</Icon>{" "}
                 <Icon
                     name="euro sign"
-                    onClick={emptyCart}
+                    onClick={UpdateSellNumber}
                     style={{cursor: "pointer"}}
                 >Valider le caddie</Icon>
             </div>

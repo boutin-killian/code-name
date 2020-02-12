@@ -110,20 +110,20 @@ function App() {
     }, [cart, nbArticles]);
 
     function addToCart(item) {
-        if (!cart[item.id]) {
-            cart[item.id] = item;
-            cart[item.id].quantity = 1;
+        if (!cart[item._id]) {
+            cart[item._id] = item;
+            cart[item._id].quantity = 1;
         } else {
-            cart[item.id].quantity += 1;
+            cart[item._id].quantity += 1;
         }
         setCart({...cart});
     }
 
     function removeFromCart(item) {
-        if (cart[item.id].quantity !== 1) {
-            cart[item.id].quantity = cart[item.id].quantity - 1;
+        if (cart[item._id].quantity !== 1) {
+            cart[item._id].quantity = cart[item._id].quantity - 1;
         } else {
-            delete cart[item.id];
+            delete cart[item._id];
         }
         setCart({...cart});
     }
@@ -135,6 +135,21 @@ function App() {
         if (response) {
             setCart({});
         }
+    }
+
+    function UpdateSellNumber() {
+        console.log("UpdateSellNumber");
+        const config = {
+            "Content-Type": "application/json"
+        };
+        
+        Object.keys(cart).map(key => {
+            console.log("cart : ",cart[key]._id);
+            console.log("cart nbSell : ",cart[key].quantity);
+            axios
+                .put("http://localhost:3002/articles", {_id: cart[key]._id, nbSell: cart[key].quantity}, config)
+                .catch(err => console.error(err));
+        });
     }
 
     function countCartArticles() {
@@ -149,7 +164,8 @@ function App() {
         addToCart,
         countCartArticles,
         removeFromCart,
-        emptyCart
+        emptyCart,
+        UpdateSellNumber
     };
 
     return (
