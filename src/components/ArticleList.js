@@ -27,7 +27,7 @@ export default function ArticlesList() {
 
     return (
         <div className={"articles-div"}>
-            <h3>Musiques</h3>
+            <h3>Articles</h3>
             {!articleFound ? (
                 <div>Chargement des articles...</div>
             ) : (

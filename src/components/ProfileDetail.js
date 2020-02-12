@@ -8,7 +8,7 @@ export default function ProfileDetail({ props, user, disconnect }) {
       e.preventDefault();
       disconnect();
       props.history.push("/");
-    }
+    };
 
     return (
         <>
