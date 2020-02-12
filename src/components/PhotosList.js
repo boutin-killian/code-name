@@ -24,7 +24,7 @@ export default function PhotosList() {
             {photos.map(photo => (
               <Grid.Column key={photo.id}>
                 <Segment style={{ height: "26em" }}>
-                  <ArticleCard data={photo} />
+                  <ArticleCard data={photo} type={photo.type} typeLabel={"Photo"} />
                 </Segment>
               </Grid.Column>
             ))}

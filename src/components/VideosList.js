@@ -24,7 +24,7 @@ export default function VideosList() {
             {videos.map(video => (
               <Grid.Column key={video.id}>
                 <Segment style={{ height: "26em" }}>
-                  <ArticleCard data={video} />
+                  <ArticleCard data={video} type={video.type} typeLabel={"Video"} />
                 </Segment>
               </Grid.Column>
             ))}
