@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -7,6 +8,9 @@ var cors = require("cors");
 
 let users = [];
 const secret = "yeah-bad-secret-but-just-for-testing";
+const DbManager = require("./src/utils/DbManager");
+const db = DbManager();
+const User = require("./models/User");
 
 app.use(cors());
 app.use(express.json());
@@ -75,6 +79,26 @@ app.post("/register", (req, res) => {
       token: jwt.sign(payload, secret),
       user: { name: req.body.name, email: req.body.email }
     });
+  });
+
+  app.get("/users", (req,res) => {
+    console.log("/users");
+    if (db) {
+      User.find({})
+        .sort({ fullname: 1 })
+        .limit(3)
+        .exec((err, users) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: "could not retrieve users" });
+          }
+          console.log("users", users);
+          return res.status(200).json({ users });
+        });
+    } else {
+      res.status(500).json({ message: "DB is NOT ready" });
+    }
   });
 
 const PORT = 3002;

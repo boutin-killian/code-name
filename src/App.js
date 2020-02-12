@@ -4,7 +4,6 @@ import {Container, Menu, Icon} from "semantic-ui-react";
 import "./App.css";
 import axios from "axios";
 import Login from "./components/Login";
-import UserSummary from "./components/UserSummary";
 import ArticleList from "./components/ArticleList";
 import CartSummary from "./components/CartSummary";
 import CartDetails from "./components/CartDetails";
@@ -15,6 +14,7 @@ import VideosList from "./components/VideosList";
 import ProfileDetail from "./components/ProfileDetail";
 
 export const CartContext = createContext();
+
 const CART_KEY = "react-shop";
 const STORAGE_KEY = "react-log";
 
@@ -125,61 +125,57 @@ function App() {
         emptyCart
     };
 
-    return (
-        <>
-            {isLoginVisible ? (
-                <Login login={handleLogin} register={handleRegister}/>
-            ) : (
-                <UserSummary user={user} disconnect={disconnect}/>
-            )}
-            <br/>
-            <Router>
-                <CartContext.Provider value={contextValue}>
-                    <Container>
-                        <Menu stackable>
-                            <Menu.Item>
-                                <Link to="/">Lwar</Link>
-                            </Menu.Item>
-                            {!isLoginVisible &&
-                            <Menu.Item>
-                                <Link to="/profile">Mon profil</Link>
-                            </Menu.Item>
-                            }
-                            <Menu.Item>
-                                <Link to="/cart">
-                                    <Icon name="cart" size="small"/> <CartSummary/>
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link to="/videos">Videos</Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link to="/photos">Photos</Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link to="/musiques">Musiques</Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link to="/livres">Livres</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Container>
-                    <Switch>
-                        {!isLoginVisible && (
-                            <Route path="/profile" component={ProfileDetail}/>
-                        )}
-                        <Route path="/cart" component={CartDetails}/>
-                        <Route path="/videos" component={VideosList}/>
-                        <Route path="/photos" component={PhotosList}/>
-                        <Route path="/musiques" component={MusicsList}/>
-                        <Route path="/livres" component={BooksList}/>
-
-                        <Route path="/" component={ArticleList}/>
-                    </Switch>
-                </CartContext.Provider>
-            </Router>
-        </>
-    );
+  return (
+    <>
+      <Router>
+        <CartContext.Provider value={contextValue}>
+          <Container>
+            <Menu stackable>
+              <Menu.Item>
+                <Link to="/">Lwar</Link>
+              </Menu.Item>
+              {isLoginVisible ? (
+                <Menu.Item>
+                  <Link to="/login-register">Login/Register</Link>
+                </Menu.Item>
+              ) : (
+                <Menu.Item>
+                  <Link to="/profile">Mon profil</Link>
+                </Menu.Item>
+              )}
+              <Menu.Item>
+                <Link to="/cart">
+                  <Icon name="cart" size="small" /> <CartSummary />
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/videos">Videos</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/photos">Photos</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/musiques">Musiques</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/livres">Livres</Link>
+              </Menu.Item>
+            </Menu>
+          </Container>
+          <Switch>
+            <Route path="/profile" render={() => <ProfileDetail user={user} disconnect={disconnect} />} />
+            <Route path="/cart" component={CartDetails} />
+            <Route path="/videos" component={VideosList} />
+            <Route path="/photos" component={PhotosList} />
+            <Route path="/musiques" component={MusicsList} />
+            <Route path="/livres" component={BooksList} />
+            <Route path="/login-register" render={() => <Login login={handleLogin} register={handleRegister} />} />
+            <Route path="/" component={ArticleList} />
+          </Switch>
+        </CartContext.Provider>
+      </Router>
+    </>
+  );
 }
 
 export default App;
