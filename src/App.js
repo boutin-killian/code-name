@@ -24,7 +24,7 @@ function App() {
     const [cart, setCart] = useState({});
     const [nbArticles, setNbArticles] = useState(0);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState({name: "", email: ""});
+    const [user, setUser] = useState({fullname: "", email: ""});
 
     const handleLogin = credentials => {
         console.log("credentials", credentials);
@@ -52,6 +52,7 @@ function App() {
         axios
             .post("http://localhost:3002/register", credentials, config)
             .then(res => {
+                console.log('res.data', res.data);
                 saveTokenInLocalstorage(res.data.token);
                 setIsLoggedIn(true);
                 setUser(res.data.user);
