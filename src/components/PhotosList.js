@@ -3,23 +3,23 @@ import axios from "axios";
 import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function MusicsList() {
-  const [photoFound, setMusicFound] = useState([]);
-  const [photos, setMusics] = useState([]);
-  const [filteredMusic, setFilteredMusic] = useState([]);
+export default function PhotosList() {
+  const [photoFound, setPhotoFound] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const [filteredPhoto, setFilteredPhoto] = useState([]);
 
   useEffect(() => {
-    setMusicFound(false);
+    setPhotoFound(false);
     axios.get("http://localhost:3001/articles?type=photo").then(res => {
       const photos = res.data;
-      setMusicFound(true);
-      setMusics(photos);
-      setFilteredMusic(photos);
+      setPhotoFound(true);
+      setPhotos(photos);
+      setFilteredPhoto(photos);
     });
   }, []);
 
-  function getFilteredMusics(e) {
-    setFilteredMusic(photos.filter((photo) => {
+  function getFilteredPhotos(e) {
+    setFilteredPhoto(photos.filter((photo) => {
       let photoTitle = photo.title.toLowerCase();
       return photoTitle.indexOf(e.target.value.toLowerCase()) !== -1
     }));
@@ -35,13 +35,13 @@ export default function MusicsList() {
               <div className={"filter-div"}>
                 <label htmlFor="filter">Filtre par titre: </label>
                 <input type="text" id="filter"
-                       onChange={getFilteredMusics}/>
+                       onChange={getFilteredPhotos}/>
               </div>
-              {filteredMusic.length === 0 ? (
+              {filteredPhoto.length === 0 ? (
                   <div>Aucune photo trouvée.</div>
               ) : (
                   <Grid columns={3} doubling stackable>
-                    {filteredMusic.map(photo => (
+                    {filteredPhoto.map(photo => (
                         <Grid.Column key={photo.id}>
                           <Segment style={{height: "26em"}}>
                             <ArticleCard data={photo} type={photo.type} typeLabel={"Photo"}/>
