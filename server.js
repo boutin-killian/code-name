@@ -53,7 +53,7 @@ app.post("/login", (req, res) => {
                 };
                 res.json({
                     token: jwt.sign(payload, secret),
-                    user: {fullname: data[0].fullname, mail: req.body.email},
+                    user: data[0],
                     status: '200'
                 });
                 return;
