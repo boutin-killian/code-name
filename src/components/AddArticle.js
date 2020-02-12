@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, Form} from 'semantic-ui-react'
 import axios from "axios";
 
-const AddArticle = () => {
+const AddArticle = (props, user) => {
 
     const [title, setTitle] = useState("");
     const [year, setYear] = useState("");
@@ -10,14 +10,14 @@ const AddArticle = () => {
     const [type, setType] = useState("");
     const [image, setImage] = useState("");
 
-
     const handleSubmit = () => {
         let article = {
             'title' : title,
             'year' : year,
             'price' : price,
             'type' : type,
-            'image' : image
+            'image' : image,
+            'user' : user._id
         };
 
         axios
