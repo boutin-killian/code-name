@@ -3,7 +3,8 @@ import axios from "axios";
 import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function MusicsList() {
+const VideoList = (props) => {
+
   const [videoFound, setMusicFound] = useState([]);
   const [videos, setMusics] = useState([]);
   const [filteredMusic, setFilteredMusic] = useState([]);
@@ -54,4 +55,6 @@ export default function MusicsList() {
         )}
       </div>
   );
-}
+};
+
+export default VideoList;

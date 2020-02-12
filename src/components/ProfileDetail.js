@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { Segment, Button, Icon } from 'semantic-ui-react';
 
-export default function ProfileDetail({ props, user, disconnect }) {
+const ProfileDetail = ({ props, user, disconnect }) => {
 
     useEffect(() => {
         console.log(user);
@@ -27,4 +27,5 @@ export default function ProfileDetail({ props, user, disconnect }) {
             </div>
         </Segment>
     );
-}
+};
+export default ProfileDetail;

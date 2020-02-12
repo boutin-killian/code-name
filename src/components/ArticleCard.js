@@ -3,7 +3,7 @@ import {useSpring, animated} from "react-spring";
 import {Card, Image, Icon} from "semantic-ui-react";
 import {CartContext} from "../App";
 
-export default function ArticleCard({data, type, typeLabel}) {
+const ArticleCard = ({data, type, typeLabel}) => {
     const {addToCart} = useContext(CartContext);
     const [anim, setAnim] = useState(false);
     const props = useSpring({to: {x: anim ? 0 : 1}});
@@ -45,5 +45,6 @@ export default function ArticleCard({data, type, typeLabel}) {
                 </animated.div>
             </Card.Content>
         </Card>
-);
-}
+    );
+};
+export default ArticleCard;

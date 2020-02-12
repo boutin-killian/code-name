@@ -3,7 +3,8 @@ import axios from "axios";
 import {Grid, Segment} from "semantic-ui-react";
 import ArticleCard from "./ArticleCard";
 
-export default function ArticlesList() {
+const ArticlesList = (props) => {
+
     const [articleFound, setArticleFound] = useState([]);
     const [articles, setArticles] = useState([]);
     const [filteredArticle, setFilteredArticle] = useState([]);
@@ -25,6 +26,21 @@ export default function ArticlesList() {
         }));
     }
 
+    function getArticleType(type) {
+        switch (type) {
+            case "photo":
+                return "Photo";
+            case "video":
+                return "Video";
+            case "music":
+                return "Musique";
+            case "book":
+                return "Livre";
+            default:
+                return "Livre";
+        }
+    }
+
     return (
         <div className={"articles-div"}>
             <h3>Articles</h3>
@@ -44,7 +60,8 @@ export default function ArticlesList() {
                             {filteredArticle.articles.map(article => (
                                 <Grid.Column key={article.id}>
                                     <Segment style={{height: "26em"}}>
-                                        <ArticleCard data={article} type={article.type} typeLabel={"Musique"}/>
+                                        <ArticleCard data={article} type={article.type}
+                                                     typeLabel={getArticleType(article.type)}/>
                                     </Segment>
                                 </Grid.Column>
                             ))}
@@ -54,4 +71,5 @@ export default function ArticlesList() {
             )}
         </div>
     );
-}
+};
+export default ArticlesList;
