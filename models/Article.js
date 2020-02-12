@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 
 const ArticleSchema = new mongoose.Schema({
-    id: mongoose.Schema.Types.Number,
+    id: mongoose.Schema.Types.ObjectId,
     title: mongoose.Schema.Types.String,
-    author: mongoose.Schema.Types.DocumentArray,
-    publisher: mongoose.Schema.Types.String,
     year: mongoose.Schema.Types.Number,
-    price: mongoose.Schema.Types.Decimal128,
+    price: mongoose.Schema.Types.Number,
     type: mongoose.Schema.Types.String,
     image: mongoose.Schema.Types.String,
-    user: mongoose.Schema.Types.Number,
+    user: mongoose.Schema.Types.String,
     nbSell: mongoose.Schema.Types.Number
 })
 
