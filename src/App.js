@@ -127,12 +127,6 @@ function App() {
 
   return (
     <>
-      {isLoginVisible ? (
-        <Login login={handleLogin} register={handleRegister} />
-      ) : (
-        <UserSummary user={user} disconnect={disconnect} />
-      )}
-      <br />
       <Router>
         <CartContext.Provider value={contextValue}>
           <Container>
@@ -140,11 +134,15 @@ function App() {
               <Menu.Item>
                 <Link to="/">Lwar</Link>
               </Menu.Item>
-              {!isLoginVisible &&
+              {isLoginVisible ? (
+                <Menu.Item>
+                  <Link to="/login-register">Login/Register</Link>
+                </Menu.Item>
+              ) : (
                 <Menu.Item>
                   <Link to="/profile">Mon profil</Link>
                 </Menu.Item>
-              }
+              )}
               <Menu.Item>
                 <Link to="/cart">
                   <Icon name="cart" size="small" /> <CartSummary />
@@ -171,7 +169,7 @@ function App() {
             <Route path="/photos" component={PhotosList} />
             <Route path="/musiques" component={MusicsList} />
             <Route path="/livres" component={BooksList} />
-
+            <Route path="/login-register" render={() => <Login login={handleLogin} register={handleRegister} />} />
             <Route path="/" component={ArticleList} />
           </Switch>
         </CartContext.Provider>
