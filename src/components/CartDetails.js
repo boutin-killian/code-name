@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {Table, Icon} from "semantic-ui-react";
 import {CartContext} from "../App";
 
-export default function CartDetails() {
+const CartDetails = () => {
     const {cart, addToCart, removeFromCart, emptyCart, UpdateSellNumber} = useContext(
         CartContext
     );
