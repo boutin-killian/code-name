@@ -11,7 +11,7 @@ const MusicsList = (props) => {
 
     useEffect(() => {
         axios.get("http://localhost:3002/articles/music").then(res => {
-            const musics = res.data;
+            const musics = res.data.articles;
             setMusicFound(true);
             setMusics(musics);
             setFilteredMusic(musics);
@@ -41,7 +41,7 @@ const MusicsList = (props) => {
                         <div>Aucune musique trouvée.</div>
                     ) : (
                         <Grid columns={3} doubling stackable>
-                            {filteredMusic.articles.map(music => (
+                            {filteredMusic.map(music => (
                                 <Grid.Column key={music.id}>
                                     <Segment style={{height: "26em"}}>
                                         <ArticleCard data={music} type={music.type} typeLabel={"Musique"}/>

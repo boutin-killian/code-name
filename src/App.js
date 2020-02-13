@@ -27,7 +27,6 @@ function App() {
     const [user, setUser] = useState({fullname: "", email: ""});
 
     async function handleLogin(credentials) {
-        console.log("credentials", credentials);
         const config = {
             "Content-Type": "application/json",
         };
@@ -59,7 +58,6 @@ function App() {
     };
 
     async function handleRegister(credentials) {
-        console.log("handleRegister credentials", credentials);
         const config = {
             "Content-Type": "application/json"
         };
@@ -69,7 +67,6 @@ function App() {
           axios
               .post("http://localhost:3002/register", credentials, config)
               .then(res => {
-                console.log('res.data', res.data);
                 switch(res.data.status){
                   case '401':
                     resolve({'message': res.data.message, 'isSuccess': false});

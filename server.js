@@ -143,7 +143,7 @@ app.get("/articles", (req, res) => {
     if (db) {
         let userId = req.query.user;
         if (typeof (userId) === "undefined") {
-            Article.find({nbStock: { $gt: 0 }})
+            Article.find({})
                 .sort({year: 0})
                 .exec((err, articles) => {
                     if (err) {
@@ -151,6 +151,7 @@ app.get("/articles", (req, res) => {
                             .status(500)
                             .json({message: "could not retrieve articles"});
                     }
+                    articles = articles.filter( article => article.nbStock > 0);
                     return res.status(200).json({articles});
                 });
         } else {
@@ -235,7 +236,7 @@ app.get("/articles/:type", (req, res) => {
                       .status(500)
                       .json({message: "could not retrieve articles"});
               }
-              console.log("articles", articles);
+              articles = articles.filter( article => article.nbStock > 0);
               return res.status(200).json({articles});
           });
   } else {

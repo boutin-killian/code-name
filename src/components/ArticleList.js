@@ -11,7 +11,7 @@ const ArticlesList = (props) => {
 
     useEffect(() => {
         axios.get("http://localhost:3002/articles").then(res => {
-            const articles = res.data;
+            const articles = res.data.articles;
             setArticleFound(true);
             setArticles(articles);
             setFilteredArticle(articles);
@@ -56,7 +56,7 @@ const ArticlesList = (props) => {
                         <div>Aucune article trouvé.</div>
                     ) : (
                         <Grid columns={3} doubling stackable>
-                            {filteredArticle.articles.map(article => (
+                            {filteredArticle.map(article => (
                                 <Grid.Column key={article._id}>
                                     <Segment style={{height: "26em"}}>
                                         <ArticleCard data={article} type={article.type}

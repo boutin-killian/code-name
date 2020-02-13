@@ -12,7 +12,7 @@ const ProfileDetail = ({props, user, disconnect}) => {
 
     useEffect(() => {
         axios.get("http://localhost:3002/articles?user=" + user._id).then(res => {
-            const articles = res.data;
+            const articles = res.data.articles;
             setArticleFound(true);
             setArticles(articles);
             setFilteredArticle(articles);
@@ -74,11 +74,13 @@ const ProfileDetail = ({props, user, disconnect}) => {
                             <div>Aucune article trouvé.</div>
                         ) : (
                             <Grid columns={3} doubling stackable>
-                                {filteredArticle.articles.map(article => (
+                                {filteredArticle.map(article => (
                                     <Grid.Column key={article._id}>
                                         <Segment style={{height: "26em"}}>
-                                            {article.nbSell} {getArticleType(article.type)} vendus
-                                            {article.nbRemain} {getArticleType(article.type)} restant
+                                            <div>
+                                                {article.nbSell} {getArticleType(article.type)} vendus<br/>
+                                            {article.nbStock} {getArticleType(article.type)} restant
+                                            </div>
                                             <ArticleCard data={article} type={article.type}
                                                          typeLabel={getArticleType(article.type)}/>
                                         </Segment>

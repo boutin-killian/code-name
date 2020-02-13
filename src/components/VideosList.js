@@ -12,7 +12,7 @@ const VideoList = (props) => {
   useEffect(() => {
     setMusicFound(false);
     axios.get("http://localhost:3002/articles/video").then(res => {
-      const videos = res.data;
+      const videos = res.data.articles;
       setMusicFound(true);
       setMusics(videos);
       setFilteredMusic(videos);
@@ -42,7 +42,7 @@ const VideoList = (props) => {
                   <div>Aucune vidéo trouvée.</div>
               ) : (
                   <Grid columns={3} doubling stackable>
-                    {filteredMusic.articles.map(video => (
+                    {filteredMusic.map(video => (
                         <Grid.Column key={video.id}>
                           <Segment style={{height: "26em"}}>
                             <ArticleCard data={video} type={video.type} typeLabel={"Video"}/>

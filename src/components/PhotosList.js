@@ -11,7 +11,7 @@ const PhotosList = (props) => {
 
     useEffect(() => {
         axios.get("http://localhost:3002/articles/photo").then(res => {
-            const photos = res.data;
+            const photos = res.data.articles;
             setPhotoFound(true);
             setPhotos(photos);
             setFilteredPhoto(photos);
@@ -41,7 +41,7 @@ const PhotosList = (props) => {
                         <div>Aucune photo trouvée.</div>
                     ) : (
                         <Grid columns={3} doubling stackable>
-                            {filteredPhoto.articles.map(photo => (
+                            {filteredPhoto.map(photo => (
                                 <Grid.Column key={photo.id}>
                                     <Segment style={{height: "26em"}}>
                                         <ArticleCard data={photo} type={photo.type} typeLabel={"Photo"}/>
